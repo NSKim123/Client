@@ -1,0 +1,3 @@
+﻿  stdo.c
+C:\Users\User\Documents\GitHub\Client\cpp\c_stdo\stdo.c(115,9): warning C4477: 'printf' : 서식 문자열 '%f'에 'double' 형식의 인수가 필요하지만 variadic 인수 1의 형식이 'int'입니다.
+  c_stdo.vcxproj -> C:\Users\User\Documents\GitHub\Client\cpp\c_stdo\x64\Debug\c_stdo.exe

@@ -1,0 +1,2 @@
+C:\client_NS\c_stdo\x64\Debug\c_stdo.exe
+C:\Users\User\Documents\GitHub\Client\cpp\c_stdo\x64\Debug\c_stdo.exe
