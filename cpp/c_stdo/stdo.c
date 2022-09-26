@@ -12,7 +12,7 @@
 
 */
 
-#include <stdio.h>  //std 인풋 아웃풋
+#include <stdio.h>  //standard input output
 
 int main()
 {
@@ -85,7 +85,7 @@ int main()
 	*/
 
 
-	//문자열 풀력
+	//문자열 출력
 	//printf 임의의 값들을 가져와 문자열로 구성하여 출력한다.
 	//문자열을 구성할 때, %서식지정 예약어를 사용한다.
 	
@@ -112,7 +112,7 @@ int main()
 	printf("%c\n", tC);
 	printf("%d\n", (int)tC);
 
-	printf("%f\n", tC);
+	printf("%f\n", (float)tC);
 	printf("%f\n", (double)tC);  //double 실수
 
 
@@ -139,7 +139,7 @@ int main()
 
 
 	printf("\tI am a Good Boy.\n"); //탭
-	printf("\"I\" am a Good Boy.\n"); //문자열 안에 "와 '를 넣고 싶을 때에는 저렇게 \를 넣으면 된다.
+	printf("\"I\" am a Good Boy.\n"); //문자열 안에 "와 '를 넣고 싶을 때에는 저렇게 " 와 ' 앞에 \를 넣으면 된다.
 	printf("I am a \'Good\' Boy.\n");
 
 
