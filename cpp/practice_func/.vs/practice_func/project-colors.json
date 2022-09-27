@@ -1,0 +1,16 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "b3b721c3-179f-4ec4-9ab8-064eb792474c": {
+      "ProjectGuid": "b3b721c3-179f-4ec4-9ab8-064eb792474c",
+      "DisplayName": "practice_func",
+      "ColorIndex": 0
+    },
+    "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3": {
+      "ProjectGuid": "a2fe74e1-b743-11d0-ae1a-00a0c90fffc3",
+      "DisplayName": "기타 파일",
+      "ColorIndex": -1
+    }
+  },
+  "NextColorIndex": 1
+}

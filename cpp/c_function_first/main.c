@@ -30,7 +30,7 @@
 		함수 정의의 형태는 이와 같다.
 
 			리턴타입 함수이름(매개변수타입 매개변수이름, ...)
-			{
+			{//function body
 				//원하는 명령문들
 
 				return 호출측에 돌려줄 값;
@@ -47,6 +47,8 @@
 //함수의 선언
 int DoAddictive(int tA, int tB);
 int DoSubtract(int tA, int tB);
+int DoMultiply(int tA, int tB);
+float DoDivide(float tA, float tB);
 
 int main()
 {
@@ -64,16 +66,19 @@ int main()
 	printf("addictive : %d\n", tResult);
 
 	//-
+	//DoSubtract
 	tResult = DoSubtract(tA, tB);//tA - tB;
 	printf("subtract : %d\n", tResult);
 
 	//*
-	tResult = tA * tB;
+	//DoMultiply
+	tResult = DoMultiply(tA, tB);
 	printf("multiply : %d\n", tResult);
 
 	// /
+	//DoDivide
 	float tResult0 = 0.0f;
-	tResult0 = (float)tA / (float)tB;
+	tResult0 = DoDivide((float)tA, (float)tB);
 	printf("division : %f\n", tResult0);
 	
 	
@@ -94,6 +99,22 @@ int DoSubtract(int tA, int tB)
 {
 	int tResult = 0;
 	tResult = tA - tB;
+
+	return tResult;
+}
+
+int DoMultiply(int tA, int tB)
+{
+	int tResult = 0;
+	tResult = tA * tB;
+
+	return tResult;
+}
+
+float DoDivide(float tA, float tB)
+{
+	float tResult = 0;
+	tResult = tA / tB;
 
 	return tResult;
 }
