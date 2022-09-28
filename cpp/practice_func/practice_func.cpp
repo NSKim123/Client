@@ -23,7 +23,10 @@
 
 using namespace std;
 
+//선언
 int DoMoveX(int tBraveX, int tVelocity);
+int DoRollDice(int tDice);
+int GetWorldAttrib(int tWorld[], int tBraveX);
 
 int main()
 {
@@ -67,7 +70,7 @@ int main()
         {
             if (tBraveX > 0)
             {
-                tBraveX = tBraveX - 1;
+                tBraveX = DoMoveX(tBraveX, -1);
                 cout << "<--move left" << endl;
             }
             else
@@ -81,7 +84,7 @@ int main()
             if (tBraveX < 4)
             {
                 //다음 한 줄에 우변의 기능을 함수로 만들어 프로그램 구조를 변경해보자.
-                tBraveX = DoMoveX(tBraveX, 1);
+                tBraveX = DoMoveX(tBraveX, 1); //tBraveX + 1 ;
 
                 cout << "-->move right" << endl;
             }
@@ -92,7 +95,9 @@ int main()
         }
 
         int tAttrib = 0;
-        tAttrib = tWorld[tBraveX];
+        //int GetWorldAttrib(int tWorld[], int tBraveX)
+        tAttrib = GetWorldAttrib(tWorld, tBraveX);//tWorld[tBraveX];
+        
         switch (tAttrib)
         {
         case 0: //아무것도 없음
@@ -113,14 +118,15 @@ int main()
                 if ('r' == tIsRollDice)
                 {
                     //roll dice
-                    int tDiceNumber = rand() % 6 + 1;
+                    //int DoRollDice(int tDice)
+                    int tDiceNumber = DoRollDice(6); //rand() % 6 + 1;
                     cout << tDiceNumber << endl;
 
                     switch (tDiceNumber)
                     {
                     case 1:
                     case 2:
-                    case 3:
+                    case 3: //1, 2, 3 일때
                     {
                         tBraveHP = tBraveHP - tSlimeAP;
 
@@ -129,7 +135,7 @@ int main()
                     break;
                     case 4:
                     case 5:
-                    case 6:
+                    case 6: //4, 5, 6 일때
                     {
                         tSlimeHP = tSlimeHP - tBraveAP;
 
@@ -174,10 +180,26 @@ int main()
     return 0;
 }
 
+//정의
 int DoMoveX(int tBraveX, int tVelocity)
 {
     int tResult = 0;
     tResult = tBraveX + tVelocity;
     
+    return tResult;
+}
+int DoRollDice(int tDice)
+{
+    int tResult = 0;
+    tResult = rand() % tDice + 1;
+
+    return tResult;
+}
+int GetWorldAttrib(int tWorld[], int tBraveX)
+{
+    int tResult = 0;
+
+    tResult = tWorld[tBraveX];
+
     return tResult;
 }
