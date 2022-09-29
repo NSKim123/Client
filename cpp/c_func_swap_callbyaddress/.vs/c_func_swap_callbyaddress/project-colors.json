@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "121bcfc5-ab76-4036-990c-4061b8162407": {
+      "ProjectGuid": "121bcfc5-ab76-4036-990c-4061b8162407",
+      "DisplayName": "c_func_swap_callbyaddress",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
