@@ -14,6 +14,7 @@
 */
 
 unsigned int DoFactorial(unsigned int tN);
+unsigned int DoFactorialNoReculsive(unsigned int tN); //비재귀버전의 함수
 
 int main()
 {
@@ -22,6 +23,10 @@ int main()
 	tResult = DoFactorial(tA);
 
 	printf("4!의 결과값: %d\n", tResult);
+
+	tResult = DoFactorialNoReculsive(tA);
+
+	printf("(No Reculsive) 4!의 결과값: %d\n", tResult);
 
 	return 0;
 }
@@ -38,11 +43,11 @@ int main()
 /*
  
 	재귀호출의 단점
-	i)함수 호출 비용이 든다( 속도가 느리다 )
-	ii)스택 오버 플로우 stack over flow : 스택 메모리가 모자랄 수도 있다.
+	i) 함수 호출 비용이 든다( 속도가 느리다 )
+	ii) 스택 오버 플로우 stack over flow : 스택 메모리가 모자랄 수도 있다.
 
 	재귀호출의 장점
-	i)코드가 심미적이다..
+	i) 코드가 심미적이다..
 
 */
 unsigned int DoFactorial(unsigned int tN)
@@ -56,5 +61,30 @@ unsigned int DoFactorial(unsigned int tN)
 	{
 		//reculsive case
 		return tN * DoFactorial(tN - 1);
+	}
+}
+/*
+
+비재귀버전의 함수 호출의 장점(vs 재귀호출)
+i) 함수호출 비용이 들지 않는다.
+ii) 선언된 지역변수(매개변수도)만큼의 메모리만 사용한다.
+
+*/
+unsigned int DoFactorialNoReculsive(unsigned int tN)
+{
+	if (0 == tN)
+	{
+		return 1;
+	}
+	else
+	{
+		unsigned int tTemp = 1;  //재귀호출버전의 함수에서 암묵적으로 표현되던 결과값을 담는 메모리가 여기서는 변수로 명시적으로 표현되었다.
+		unsigned int ti = 0;
+		//재귀호출되는 부분이 반복제어구조로 변경되었다.
+		for (ti=tN;ti>0;--ti)
+		{
+			tTemp = tTemp * ti;
+		}
+		return tTemp;
 	}
 }

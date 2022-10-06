@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "1dd1b7ba-02b1-4f6c-b96a-b72215d686db": {
+      "ProjectGuid": "1dd1b7ba-02b1-4f6c-b96a-b72215d686db",
+      "DisplayName": "c_malloc_0",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
