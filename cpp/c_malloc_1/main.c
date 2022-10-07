@@ -50,6 +50,28 @@ int main()
 	CreateRyu_0(&tpA);
 	DestroyRyu_0(&tpA);
 
+
+
+	//step_3
+	//댕글링 포인터 dangling pointer
+	int* tpB = NULL;
+	int* tpC = NULL;
+
+	tpB = (int*)malloc(sizeof(int) * 64);
+	tpC = tpB;
+
+	if (NULL != tpB)
+	{
+		free(tpB);
+		tpB = NULL;
+	}
+	//이제 포인터 변수 tpC는 댕글링 dangling 되었다.
+	//	(가리키는 주소값은 있는데 , 실제 그 주소의 메모리에는 할당된 것이 없다)
+	//  -----> 만약 사용하려고 하면 메모리 참조 에러를 낸다.
+
+	printf("tpB의 주소값: %p\n", tpB);
+	printf("tpC의 주소값: %p\n", tpC);
+
 	return 0;
 }
 
