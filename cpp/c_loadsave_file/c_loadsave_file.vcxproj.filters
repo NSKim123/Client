@@ -15,7 +15,7 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="c_loadsave_file_txt.c">
+    <ClCompile Include="c_loadsave_file_bin.c">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>

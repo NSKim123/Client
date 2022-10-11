@@ -26,7 +26,8 @@ int main()
 {
 	//step_0
 	//힙메모리에 int 타입의 변수를 100개 만들고 해제하세요.
-	/*int* tpA = NULL;
+	/*
+	int* tpA = NULL;
 	tpA = (int*)malloc(sizeof(int) * 100);
 
 	if (NULL != tpA)
