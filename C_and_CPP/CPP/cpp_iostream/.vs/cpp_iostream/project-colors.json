@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "1facb60a-0304-4427-b58e-a8fe01f0d64c": {
+      "ProjectGuid": "1facb60a-0304-4427-b58e-a8fe01f0d64c",
+      "DisplayName": "cpp_iostream",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
