@@ -1,9 +1,6 @@
 ﻿
 /*
     reference
-
-
-
 */
 
 #include <iostream>
