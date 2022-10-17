@@ -44,6 +44,58 @@ int main()
     int tD = static_cast<int>(tY / tX); //<--CPP스타일 형변환 중 정적형변환
     cout << tD << endl;
 
+
+
+
+
+
+    //step_1
+    int tZ = 777;
+    cout << "tZ: " << tZ << endl;
+    
+    //꾸며주는 곳(현재 int*)이 readonly 되었다.
+    //const int* tpRyu = nullptr;
+    int const* tpRyu = nullptr;
+    tpRyu = &tZ; //포인터 변수의 값을 변경하는 것은 가능하지만,
+
+    //*tpRyu = 1024; 간접참조하여 변경하는 것은 안 된다.
+    tZ = 1024;
+    cout << "tZ: " << tZ << endl;
+
+    //const_cast<>()
+    //상수 속성이 제거된 형변환
+    int* tpPP = const_cast<int*>(tpRyu);
+    *tpPP = 512;
+    cout << "tZ: " << tZ << endl;
+
+        //꾸며주는 것이 reedonly되었다. 여기서는 포인터 변수가 readonly다.
+        int* const tpRR = nullptr;
+        //tpRR = &tZ; <--그래서 포인터 변수에 값을 변경할 수 없다.
+
+        
+
+
+
+
+    //step_2
+    //아무타입도 아닌 경우 내가 원하는 타입으로 형변환(뭐든지 형변환)
+    int* tpPtr = nullptr;
+
+    //tpPtr = (int*)malloc(sizeof(int) * 1);
+    tpPtr = reinterpret_cast<int*>(malloc(sizeof(int) * 1)); //malloc : void
+
+    if (nullptr != tpPtr)
+    {
+        *tpPtr = 256;
+        cout << *tpPtr << endl;
+    }
+
+    if (nullptr != tpPtr)
+    {
+        free(tpPtr);
+        tpPtr = nullptr;
+    }
+
     return 0;
 }
 
