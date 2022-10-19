@@ -41,6 +41,18 @@ public:
     ~CSlime();
 };
 
+//Setter, Getter
+class CBrave
+{
+private:
+    int mX = 0;
+
+public:
+    void SetX(int tX);      //Setter
+    int GetX();             //Getter
+    
+};
+
 int main()
 {
     CSlime tSlime;
@@ -51,6 +63,11 @@ int main()
     tSlime.mAP = 66;*/
     tSlime.BuildInfo(5, 120, 66);
     tSlime.DisplayInfo();
+
+
+    CBrave tBrave;
+    tBrave.SetX(2048);
+    cout << tBrave.GetX() << endl;
 
     return 0;
 }
@@ -78,4 +95,13 @@ CSlime::CSlime()
 CSlime::~CSlime()
 {
 
+}
+
+void CBrave::SetX(int tX)
+{
+    mX = tX;
+}
+int CBrave::GetX()
+{
+    return mX;
 }
