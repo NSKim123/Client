@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "b474d8e0-dbdc-40a5-bb44-3a7d3bcd606b": {
+      "ProjectGuid": "b474d8e0-dbdc-40a5-bb44-3a7d3bcd606b",
+      "DisplayName": "oop_cpp_virtual_class_sizeof",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

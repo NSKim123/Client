@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "70b2780c-5c43-4292-bf23-acf4682e1f73": {
+      "ProjectGuid": "70b2780c-5c43-4292-bf23-acf4682e1f73",
+      "DisplayName": "oop_cpp_virtual_destructor",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
