@@ -58,6 +58,7 @@ public:
 
 int main()
 {
+    /*
     CSlime tSlimeA;     //기본 생성자가 호출
     CSlime tSlimeB;     //기본 생성자가 호출
 
@@ -68,7 +69,19 @@ int main()
     CSlime tSlimeC = tSlimeA;    //'복사 생성자'가 호출
 
     tSlimeB = tSlimeA;      //'복사 대입 연산자'가 호출
+    */
+    //=========================
 
+    CSlimeBoss tBossA;
+    CSlimeBoss tBossB;
+
+    tBossA.mX = 20;
+    tBossA.mHP = 1024;
+    tBossA.mAP = 77;
+    
+    CSlimeBoss tBossC = tBossA;
+
+    tBossB = tBossA;
 
     return 0;
 }
@@ -146,11 +159,15 @@ CSlimeBoss::~CSlimeBoss()
 }
 
 CSlimeBoss::CSlimeBoss(const CSlimeBoss& t)
+    :CSlime(t) //부모클래스의 복사생성자를 호출
 {
-
+    //자신의 클래스의 복사생성자에서 해야할 것들을 수행
 }
 
 void CSlimeBoss::operator=(const CSlimeBoss& t)
 {
+    //부모클래스의 복사 대입 연산자를 호출
+    CSlime::operator=(t);
 
+    //자신의 클래스의 복사대입 연산자에서 해야할 것들을 수행.
 }
