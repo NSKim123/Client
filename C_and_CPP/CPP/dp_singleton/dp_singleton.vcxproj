@@ -139,7 +139,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="CRyuMgr.cpp" />
+    <ClCompile Include="CUiPlayGame.cpp" />
+    <ClCompile Include="CUnit.cpp" />
     <ClCompile Include="dp_singleton.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="CRyuMgr.h" />
+    <ClInclude Include="CUiPlayGame.h" />
+    <ClInclude Include="CUnit.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
