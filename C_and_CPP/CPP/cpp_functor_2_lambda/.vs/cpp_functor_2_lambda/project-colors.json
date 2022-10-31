@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "eedfda05-ed1b-4d3c-af40-20eb648cf6b3": {
+      "ProjectGuid": "eedfda05-ed1b-4d3c-af40-20eb648cf6b3",
+      "DisplayName": "cpp_functor_2_lambda",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
