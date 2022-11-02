@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "358de65e-4556-40d1-84e7-a562cba00d4d": {
+      "ProjectGuid": "358de65e-4556-40d1-84e7-a562cba00d4d",
+      "DisplayName": "ds_linkedlist_double",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

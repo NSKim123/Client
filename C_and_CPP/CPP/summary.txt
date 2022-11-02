@@ -1,0 +1,56 @@
+-singleton pattern
+1. static 클래스* instance       <- static : 데이터 메모리 영역에 위치하게 만듦
+	-> 전역공간에서 초기화를 해준다.			
+2. 생성자, 소멸자 : public x
+3. static 클래스* GetInstance()
+   {
+       if(nullptr == instance)
+       {
+            instance = new 클래스();        <-최대 생성갯수를 1개로 제한하는 판단제어구조
+       }
+   }
+
+
+
+-Template : cpp 일반화프로그래밍 도구
+
+사용법:
+
+template<typename T>
+------함수, 클래스 정의------
+
+
+specialize :
+
+template<>
+------원하는 타입에 대해서 함수나 클래스 정의------
+
+
+-vector (STL)
+STL : 템플릿을 이용하여 만들어진 함수와 클래스의 모음집
+    구성요소( 컨테이너, 반복자, 알고리즘)
+	컨테이너 : 일반화된 자료구조
+	반복자 : 일반화된 포인터
+	알고리즘 
+vector : 가변배열(컨테이너)
+
+vector<타입> 배열이름;
+
+-cpp11 array
+
+사용법:
+array<타입, 원소 수> 이름
+
+begin(), end() 등과 같은 STL 문법을 사용할 수 있다.
+
+
+-함수객체 functor
+
+사용법:
+
+class 함수객체이름
+{
+public:
+     //'함수호출연산자'()를 오버로드
+	반환타입 operator()(매개변수) {정의}
+}
