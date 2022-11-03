@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "d49a9415-5120-45f2-b043-ddf30ec0227d": {
+      "ProjectGuid": "d49a9415-5120-45f2-b043-ddf30ec0227d",
+      "DisplayName": "ds_queue_bylinkedlist",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}

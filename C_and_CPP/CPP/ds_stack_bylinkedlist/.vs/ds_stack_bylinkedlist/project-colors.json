@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "7d03bd49-07d5-4c0e-bc00-62243c0cedba": {
+      "ProjectGuid": "7d03bd49-07d5-4c0e-bc00-62243c0cedba",
+      "DisplayName": "ds_stack_bylinkedlist",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
