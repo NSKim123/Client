@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "bc59af5e-90a7-4964-8f8d-c615d6a5eae1": {
+      "ProjectGuid": "bc59af5e-90a7-4964-8f8d-c615d6a5eae1",
+      "DisplayName": "ds_binary_search_tree",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
