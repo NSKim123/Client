@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "389e8feb-da8b-4385-8d4c-e428376a0c0f": {
+      "ProjectGuid": "389e8feb-da8b-4385-8d4c-e428376a0c0f",
+      "DisplayName": "algo_search_sequential",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
