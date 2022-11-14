@@ -1,3 +1,15 @@
+자료구조 data structure : 자료를 담아두는 구조물 ---> 구조로부터 특징이 나타난다.
+	
+	링크드리스트
+	트리
+	
+	이진트리
+	이진탐색트리
+
+	스택
+	큐
+
+
 알고리즘algorithm
  임의의 문제를 해결하기 위한 '절차'적인 방법론
 
@@ -13,7 +25,11 @@
 
 기초적인 알고리즘
 
-	검색 search  
-		순차검색 sequential search
+	검색 search : 임의 값을 찾는 문제
+		순차검색 sequential search  O(n)
+		이분(이분)검색 interpolation search  O(log n)
+		해쉬검색 hash search  O(1)
 
-	정렬 sort 
+	정렬 sort : 순서 없이 나열된 자료들을 순서 있게 다시 나열하는 것
+		
+		

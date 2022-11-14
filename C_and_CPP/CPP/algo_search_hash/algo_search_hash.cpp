@@ -1,5 +1,9 @@
 ﻿
+/*
+    해쉬검색 hash search 
+            해쉬함수를 통해 데이터를 바로 위치로 만들어 해당위치에 해당 데이터를 저장하는 자료구조인 해쉬를 이용한 검색
 
+*/
 
 #include <iostream>
 using namespace std;
