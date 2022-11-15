@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "a77a9731-4dac-4ad3-a726-45a1b3c50907": {
+      "ProjectGuid": "a77a9731-4dac-4ad3-a726-45a1b3c50907",
+      "DisplayName": "algo_sort_quick",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
