@@ -1,0 +1,11 @@
+{
+  "Version": 1,
+  "ProjectMap": {
+    "6517ac14-b686-4947-adbc-0e491c791196": {
+      "ProjectGuid": "6517ac14-b686-4947-adbc-0e491c791196",
+      "DisplayName": "cpp_stl_stack_queue",
+      "ColorIndex": 0
+    }
+  },
+  "NextColorIndex": 1
+}
