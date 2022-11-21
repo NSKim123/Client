@@ -1,0 +1,24 @@
+WinMain(식별자hInstance)
+{
+	windowclass 데이터 설정과 등록
+	//윈도우의 공통된 특징(중복된 데이터)들을 담아 설정하고 운영체제에게 등록하는 부분	
+	
+	hWnd = create window
+	//( 실제 눈에 보이는 ) 윈도우를 생성한다.
+	<- 여기서 hWnd는 실제 눈에 보이는 윈도우에 대한 식별자이다. 즉, 같은 종류라 하더라도 다 따로 있다.
+	반면에 hInstance는 같은 종류면 하나만 있다.
+
+	while(메시지큐에 메시지가 들어올때까지 대기)
+	{
+		Dispatch to 윈도우 프로시저	
+	}	
+}
+
+WindowProc() 
+{
+	switch
+	case
+	case
+	default
+	      DefWindowProc()
+}

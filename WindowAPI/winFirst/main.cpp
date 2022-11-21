@@ -71,7 +71,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
     int       nCmdShow)
 {
     
-     //   운영체제의 시스템 커널에 의해 괸리되는 영역에 속한 '자원'이므로 포인터로 참조하는 것이 아닌
+     //   운영체제의 시스템 커널에 의해 관리되는 영역에 속한 '자원'이므로 포인터로 참조하는 것이 아닌
      //   이렇게 별도의 정해진 규칙의 데이터를 설정함으로써 운영체제에서 제공하는 '윈도우'라는 자원을
      //   만들고 관리하게 된다
      //   <-- window api가 만들어진 형태대로 가이드하는대로 한다.
@@ -189,6 +189,17 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
 
 //<-------이벤트 드리븐event driven,
 //          메시지Message, 메시지루프Message loop, 윈도우 프로시저window procedure, 메시지큐Message Queue
+//여기서는 '윈도우 프로그램은 이벤트 기반으로 동작한다' 라는 개념을 살펴본다
+//이를 위해 제공되는 '윈도우 프로시저'개념을 살펴본다
+
+//"'윈도우 프로시저'를 정의하고 '윈도우클래스 정보'에 설정하였다"
+
+//윈도우 프로시저의 정의는 window api가 요구하는 형식을 맞춰야만 한다
+//------------호출은 운영체제가 하기 때문이다!!!!!!!------------
+
+//message : 윈도우 메시지 식별자이다. WM_접두사가 붙어있다.
+//wParam Word PARAMETER 32비트 응용앱에서는 32비트 크기이다.
+//lParam LONG PARAMETER 32비트 크기이다.
 
 LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
@@ -197,8 +208,10 @@ LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
     case WM_PAINT:
     {
         PAINTSTRUCT ps;
-        HDC hdc = BeginPaint(hWnd, &ps);
+        HDC hdc = BeginPaint(hWnd, &ps);  //hdc device context에 대한 핸들
+        // device context 그리기 장치 ( 그리기에 대한 여러가지 장치와 소프트웨어를 추상화해놓은 것 )
         // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
+
         EndPaint(hWnd, &ps);
     }
     break;
