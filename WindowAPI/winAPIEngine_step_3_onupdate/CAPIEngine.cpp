@@ -134,6 +134,7 @@ void CAPIEngine::OnUpdate()
 {
     //OutputDebugString(L"CAPIEngine::OnUpdate\n");
 
+    /*
     //문자열
     TextOut(mhDC, 0, 0, TEXT("Good Boy."), 9);
     TextOut(mhDC, 0, 25, TEXT("0102345%$*&^HJKJBBHKfggfJU가ㄱ"), 28);
@@ -161,7 +162,12 @@ void CAPIEngine::OnUpdate()
 
     //원
     Ellipse(mhDC, 0, 400, 0 + 100, 400 + 100);
+    */
+}
 
+void CAPIEngine::DrawCircle(float tX, float tY, float tRadius)
+{
+    Ellipse(mhDC, tX - tRadius, tY - tRadius, tX + tRadius, tY + tRadius);
 }
 
 

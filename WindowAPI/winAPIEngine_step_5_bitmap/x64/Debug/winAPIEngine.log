@@ -1,0 +1,9 @@
+﻿  CAPIEngine.cpp
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_5_bitmap\CAPIEngine.cpp(144,64): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_5_bitmap\CAPIEngine.cpp(144,50): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_5_bitmap\CAPIEngine.cpp(144,36): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_5_bitmap\CAPIEngine.cpp(144,22): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  CUnit.cpp
+  winAPIEngine.cpp
+  코드를 생성하고 있습니다...
+  winAPIEngine.vcxproj -> C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_5_bitmap\x64\Debug\winAPIEngine.exe
