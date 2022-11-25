@@ -16,13 +16,26 @@
     이전까지 작성한 예시를동작 시켜보면
     두가지 문제점이 있다.
 
-         첫째, 비트맵이 지나간 자리에 그려진 흔적이 남는다.
+         첫째, 지나간 자리에 그려진 흔적이 남는다.
          둘째, 깜빡이는 현상이 일어난다.
 
     첫째, 흔적이 남는 것은 필요한 부분만 갱신하므로 당연한 것인데
     이것은 화면 전체를 새로운 색으로 채워넣는 것으로 하여 해결하자
 
+    둘째를 보자.
+    이 깜빡이는 현상은
+    현재화면 DC에 그리는 과정이 실시간으로, 직접 현재화면 DC에 그리는 방식으로 일어나고 있기 때문이다.
+    그려가는 과정이 실시간으로 보이게 되므로
+    그것이 깜빡임처럼 보이게 되는 것이다.
+    --> 일단 한장을 별도의 메모리에 모두 그린 후, 그것을 한꺼번에 현재 화면 dc에 제시, '제출 presnet'하는 형태로 바꾸자(복사)
 
+        윈도우즈가 제공하는 그리기 출력 시스템이
+                게임 프로그램이 요구하는 사항과는 맞지 않다.
+                <-- 주원인은 현재화면DC(메모리)에 직접 그리는 명령을 하고 있는데
+                    메모리에서 디스플레이장치(출력장치)로 출력하는 것은 그리는 명령과 동기되지 않는다는 것이다.
+                          <--즉, 현재화면DC에 그리는 와중에 디스플레이장치로 출력될 수 있다는 것이다.
+
+                -----> memory에서 memory로 복사하면 이것은 해당 복사함수호출이 끝나는 지점에서 프레임 이미지가 완성되어 있을 것이다.
 */
 
 
@@ -94,33 +107,47 @@ public:
         if (GetAsyncKeyState('A') & 0x8000)   //<--GetAsyncKeyState함수가 호출되는 시점에 A키 눌림이 있다.
         {
             //현재 위치 = 이전위치 + 속도
-            mpUnit->mX = mpUnit->mX - 0.01f;
+            mpUnit->mX = mpUnit->mX - 0.1f;
         }
         //D키가 눌리고 있다면
         if (GetAsyncKeyState('D') & 0x8000)   //<--GetAsyncKeyState함수가 호출되는 시점에 D키 눌림이 있다.
         {
-            mpUnit->mX = mpUnit->mX + 0.01f;
+            mpUnit->mX = mpUnit->mX + 0.1f;
         }
 
 
 
         //render
         this->Clear();
-
-
-        //Update Method Pattern : 한 프레임에 일어나는 동작을 함수화하여 게임루프와 결합하여 프로그래밍하는 패턴
-        //(하지는 않았지만) 이 예시에서는 한 프레임에 AD키에 따른 위치 변화를 업데이트 함수로 만들어서 적용할 수 있을 것이다.
+                        
         mpUnit->Render(this);
 
         if (mpTexture)
         {
-            BitBlt(mhDC, mpUnit->mX, mpUnit->mY,
+            /*BitBlt(mhDC, mpUnit->mX, mpUnit->mY,
                 mpTexture->mBitmapInfo.bmWidth, mpTexture->mBitmapInfo.bmWidth,
                 mpTexture->mhDCMem,
                 0, 0,
-                SRCCOPY);
+                SRCCOPY);*/
+
+            //DrawTexture
+            /*BitBlt(this->mpBackBuffer->mhDCMem,
+                mpUnit->mX, mpUnit->mY,
+                mpTexture->mBitmapInfo.bmWidth, mpTexture->mBitmapInfo.bmWidth,
+                mpTexture->mhDCMem,
+                0, 0,
+                SRCCOPY);*/
+            this->DrawTexture(mpUnit->mX, mpUnit->mY, mpTexture);
         }
 
+        /*BitBlt(mhDC,        //전면버퍼 : 현재화면 DC
+            0,0,
+            800,600,
+            this->mpBackBuffer->mhDCMem,      //후면버퍼 : 별도로 준비한 memoryDC
+            0, 0,
+            SRCCOPY);*/
+
+        this->Present();
 
         //test
         //window api를 이용하여 비트맵 출력해보기

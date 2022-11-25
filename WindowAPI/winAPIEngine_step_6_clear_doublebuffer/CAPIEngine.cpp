@@ -2,6 +2,8 @@
 
 #include "Resource.h"
 
+#include "CTexture.h"
+
 HINSTANCE CAPIEngine::hInst = nullptr;
 
 CAPIEngine::CAPIEngine()
@@ -60,6 +62,9 @@ MSG CAPIEngine::Run()
     mhDC = GetDC(mhWnd);    //현재 화면 DC를 얻는다
                             //GetDC는 어디서든 현재 화면 DC를 얻는 window api함수이다.
 
+    mpBackBuffer = new CTexture();
+    mpBackBuffer->CreateBackBuffer(hInst, mhDC);
+
     OnCreate(); //<-- 상속구조에 다형성을 이용한다.
 
 
@@ -90,6 +95,12 @@ MSG CAPIEngine::Run()
     }
 
     OnDestroy(); //<-- 상속구조에 다형성을 이용한다.
+
+    if (nullptr != mpBackBuffer)
+    {
+        delete mpBackBuffer;
+        mpBackBuffer = nullptr;
+    }
 
     ReleaseDC(mhWnd, mhDC);  //<-- 현재 화면 DC의 핸들의 제어권을 해제한다.
 
@@ -141,7 +152,20 @@ void CAPIEngine::OnUpdate()
 
 void CAPIEngine::DrawCircle(float tX, float tY, float tRadius)
 {
-    Ellipse(mhDC, tX - tRadius, tY - tRadius, tX + tRadius, tY + tRadius);
+    //Ellipse(mhDC, tX - tRadius, tY - tRadius, tX + tRadius, tY + tRadius);
+
+    //이제 후면 버퍼에 그린다.
+    Ellipse(mpBackBuffer->mhDCMem, tX - tRadius, tY - tRadius, tX + tRadius, tY + tRadius);
+}
+
+void CAPIEngine::DrawTexture(float tX, float tY, CTexture* tpTexture)
+{
+    BitBlt(this->mpBackBuffer->mhDCMem,
+        tX, tY,
+        tpTexture->mBitmapInfo.bmWidth, tpTexture->mBitmapInfo.bmWidth,
+        tpTexture->mhDCMem,
+        0, 0,
+        SRCCOPY);
 }
 
 void CAPIEngine::Clear()
@@ -150,7 +174,19 @@ void CAPIEngine::Clear()
     //클라이언트 영역에 크기를 얻어오는 window api
     GetClientRect(mhWnd, &tRect);
 
-    Rectangle(mhDC, 0, 0, tRect.right, tRect.bottom);
+    //Rectangle(mhDC, 0, 0, tRect.right, tRect.bottom);
+    Rectangle(mpBackBuffer->mhDCMem, 0, 0, tRect.right, tRect.bottom);
+}
+
+//double buffer pattern 적용
+void CAPIEngine::Present()
+{
+    BitBlt(mhDC,        //전면버퍼 : 현재화면 DC
+        0, 0,
+        800, 600,
+        this->mpBackBuffer->mhDCMem,      //후면버퍼 : 별도로 준비한 memoryDC
+        0, 0,
+        SRCCOPY);
 }
 
 ATOM CAPIEngine::MyRegisterClass(HINSTANCE hInstance)

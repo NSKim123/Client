@@ -2,8 +2,9 @@
 
 
 #include "framework.h"
-
 #define MAX_LOADSTRING 100
+
+class CTexture;
 
 class CAPIEngine
 {
@@ -28,11 +29,13 @@ public:
 
 	//원그리기 함수
 	void DrawCircle(float tX, float tY, float tRadius);
-
+	//비트맵 이미지 그리기 함수
+	void DrawTexture(float tX, float tY, CTexture* tpTexture);
 
 	//화면 클리어 함수
 	void Clear();
-
+	//프레임 화면 제출 함수
+	void Present();
 
 protected:
 	ATOM MyRegisterClass(HINSTANCE hInstance);
@@ -49,5 +52,8 @@ protected:
 
 	HDC mhDC;		//현재 화면 DC(의 핸들)
 	HWND mhWnd;     //윈도우 핸들
+
+
+	CTexture* mpBackBuffer = nullptr;
 };
 
