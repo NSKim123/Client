@@ -1,12 +1,2 @@
-﻿  CAPIEngine.cpp
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_8_pivot\CAPIEngine.cpp(158,81): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_8_pivot\CAPIEngine.cpp(158,67): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_8_pivot\CAPIEngine.cpp(158,53): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_8_pivot\CAPIEngine.cpp(158,39): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_8_pivot\CAPIEngine.cpp(164,13): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_8_pivot\CAPIEngine.cpp(164,9): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  CTexture.cpp
-  CUnit.cpp
-  winAPIEngine.cpp
-  코드를 생성하고 있습니다...
+﻿  winAPIEngine.cpp
   winAPIEngine.vcxproj -> C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_8_pivot\x64\Debug\winAPIEngine.exe

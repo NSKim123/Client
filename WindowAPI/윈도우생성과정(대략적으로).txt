@@ -14,11 +14,11 @@ WinMain(식별자hInstance)
 	}	
 }
 
-WindowProc() 
+WindowProc()     //메시지 처리를 어떻게 할지 정의해놓은 함수이다.
 {
 	switch
 	case
 	case
 	default
-	      DefWindowProc()
+	      DefWindowProc()   //디폴트윈도우 프로시저
 }

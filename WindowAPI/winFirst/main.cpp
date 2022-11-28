@@ -81,7 +81,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
     //윈도우 클래스 데이터 설정
     WNDCLASSEXW wcex;    //윈도우 클래스 구조체 타입의 변수
 
-    wcex.cbSize = sizeof(WNDCLASSEX);   //cb~ class buffer
+    wcex.cbSize = sizeof(WNDCLASSEXW);   //cb~ class buffer
 
     wcex.style = CS_HREDRAW | CS_VREDRAW;
     wcex.lpfnWndProc = nullptr; //WndProc;          //함수포인터 lpfnWndProc 에 함수를 등록 lpfn~ long pointer function의 의미
@@ -126,7 +126,7 @@ int APIENTRY wWinMain(HINSTANCE hInstance,
     //윈도우 클래스 데이터 설정
     WNDCLASSEXW wcex;    //윈도우 클래스 구조체 타입의 변수
 
-    wcex.cbSize = sizeof(WNDCLASSEX);   //cb~ class buffer
+    wcex.cbSize = sizeof(WNDCLASSEXW);   //cb~ class buffer
 
     wcex.style = CS_HREDRAW | CS_VREDRAW;
     wcex.lpfnWndProc = nullptr; //WndProc;          //함수포인터 lpfnWndProc 에 함수를 등록 lpfn~ long pointer function의 의미
