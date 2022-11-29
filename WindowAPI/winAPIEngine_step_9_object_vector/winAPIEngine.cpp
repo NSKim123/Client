@@ -83,20 +83,31 @@ public:
 
             비트연산으로 계산하므로 밑에 두가지 경우가 참이 된다.
         */
-
+        
+        SVector2D tVelocity;//지역변수로 설정해서, 키입력이 없다면 영벡터가 되어 움직이지 않게 된다.
         //A키가 눌리고 있다면
         if (GetAsyncKeyState('A') & 0x8000)   //<--GetAsyncKeyState함수가 호출되는 시점에 A키 눌림이 있다.
         {
             //현재 위치 = 이전위치 + 속도
-            mpUnit->mX = mpUnit->mX - 0.1f;
+            //'오일러 축차적 적분법'에 의한 위치 이동 코드
+            //mpUnit->mPosition.mX = mpUnit->mPosition.mX - 0.1f;
+            
+            //속도 설정 (-1,0)
+            tVelocity.mX = -1.0f;
+            tVelocity.mY = 0.0f;
         }
         //D키가 눌리고 있다면
         if (GetAsyncKeyState('D') & 0x8000)   //<--GetAsyncKeyState함수가 호출되는 시점에 D키 눌림이 있다.
         {
-            mpUnit->mX = mpUnit->mX + 0.1f;
+            //mpUnit->mPosition.mX = mpUnit->mPosition.mX + 0.1f;
+            
+            //속도 설정 (+1,0)
+            tVelocity.mX = 1.0f;
+            tVelocity.mY = 0.0f;
         }
 
-
+        //속도에 의한 이동 코드
+        mpUnit->mPosition = mpUnit->mPosition + tVelocity * 0.1f;
 
         //render
         this->Clear(1.0f, 0.0f, 0.0f);

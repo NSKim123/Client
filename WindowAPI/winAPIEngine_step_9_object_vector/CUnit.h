@@ -1,9 +1,11 @@
 #pragma once
 
+#include "CObjectRyu.h"
+
 class CAPIEngine; //클래스 전방선언
 class CTexture;
 
-class CUnit
+class CUnit : public CObjectRyu
 {
 public:
 	CUnit();
@@ -19,8 +21,10 @@ public:
 	
 	inline void SetPosition(float tX, float tY)
 	{
-		mX = tX;
-		mY = tY;
+		//mX = tX;
+		//mY = tY;
+		SVector2D tVector(tX, tY);
+		mPosition = tVector;
 	}
 	inline void SetRadius(float tRadius)
 	{
@@ -38,8 +42,8 @@ public:
 
 public:
 	//2차원, 연속적인 공간을 가정하여 데이터와 타입을 디자인했다.
-	float mX = 0.0f;
-	float mY = 0.0f;
+	/*float mX = 0.0f;
+	float mY = 0.0f;*/
 
 	float mRadius = 0.0f;
 
