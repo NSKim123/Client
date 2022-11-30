@@ -121,6 +121,8 @@ public:
         
         SVector2D tVelocity;//지역변수로 설정해서, 키입력이 없다면 영벡터가 되어 움직이지 않게 된다.
         //A키가 눌리고 있다면
+        mpUnit->SetVelocity(tVelocity);
+        //mpUnit->SetVelocity(tVelocity)
         if (GetAsyncKeyState('A') & 0x8000)   //<--GetAsyncKeyState함수가 호출되는 시점에 A키 눌림이 있다.
         {
             //현재 위치 = 이전위치 + 속도
@@ -130,6 +132,8 @@ public:
             //속도 설정 (-1,0)
             tVelocity.mX = -1.0f;
             tVelocity.mY = 0.0f;
+
+            mpUnit->SetVelocity(tVelocity * 0.1f);
         }
         //D키가 눌리고 있다면
         if (GetAsyncKeyState('D') & 0x8000)   //<--GetAsyncKeyState함수가 호출되는 시점에 D키 눌림이 있다.
@@ -139,10 +143,13 @@ public:
             //속도 설정 (+1,0)
             tVelocity.mX = 1.0f;
             tVelocity.mY = 0.0f;
+
+            mpUnit->SetVelocity(tVelocity * 0.1f);
         }
 
         //속도에 의한 이동 코드
-        mpUnit->mPosition = mpUnit->mPosition + tVelocity * 0.1f;
+        mpUnit->Update();
+        //mpUnit->mPosition = mpUnit->mPosition + tVelocity * 0.1f;
 
         //render
         this->Clear(1.0f, 0.0f, 0.0f);
