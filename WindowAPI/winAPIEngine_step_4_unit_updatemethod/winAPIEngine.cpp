@@ -29,7 +29,7 @@ public:
     CRyuEngine() {};
     virtual ~CRyuEngine() {};
 
-    //delete는 해당 함수의 구현을 막는 문법 ( 사실 싱글톤 패턴을 이용해도 된다. )
+    //delete는 해당 함수의 구현을 막는 문법
 private:
     CRyuEngine(const CRyuEngine& t) = delete;
     CRyuEngine& operator=(const CRyuEngine& t) = delete;

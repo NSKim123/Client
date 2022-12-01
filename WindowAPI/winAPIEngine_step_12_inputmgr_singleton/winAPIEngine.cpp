@@ -103,12 +103,15 @@ public:
         //단, 디버깅이 안 된다.
         SAFE_DELETE(mpTexture);
         //todo
+        /*
         if (nullptr != mpUnit)
         {
             //delete mpUnit;
             mpUnit->Release();
             mpUnit = nullptr;
         }
+        */
+        SAFE_RELEASE(mpUnit);
 
         /*
         //ref test

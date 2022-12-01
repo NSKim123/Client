@@ -1,15 +1,8 @@
 #include "CInputMgr.h"
+#include "ryumacro.h"
 
+/*
 CInputMgr* CInputMgr::mpInstance = nullptr;
-
-CInputMgr::CInputMgr()
-{
-
-}
-CInputMgr::~CInputMgr()
-{
-
-}
 
 CInputMgr* CInputMgr::GetInstance()
 {
@@ -27,4 +20,16 @@ void CInputMgr::ReleaseInstance()
 		delete mpInstance;
 		mpInstance = nullptr;
 	}
+}
+*/
+
+SINGLETON_DEFINITION(CInputMgr);
+
+CInputMgr::CInputMgr()
+{
+
+}
+CInputMgr::~CInputMgr()
+{
+
 }

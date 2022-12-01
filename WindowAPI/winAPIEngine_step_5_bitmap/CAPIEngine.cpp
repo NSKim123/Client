@@ -234,36 +234,7 @@ LRESULT CALLBACK CAPIEngine::WndProc(HWND hWnd, UINT message, WPARAM wParam, LPA
         PAINTSTRUCT ps;
         HDC hdc = BeginPaint(hWnd, &ps);  //DC의 handle을 얻는다. Device Context(WindowOS에서 제공하는 추상화된 그리기장치도구)
         // TODO: 여기에 hdc를 사용하는 그리기 코드를 추가합니다...
-
-        /*
-        //문자열
-        TextOut(hdc, 0, 0, TEXT("Good Boy."), 9);
-        TextOut(hdc, 0, 25, TEXT("0102345%$*&^HJKJBBHKfggfJU가ㄱ"), 28);
-        TextOut(hdc, 0, 50, TEXT("안녕하세요.김남석입니다."), 13);
-
-        LPCWSTR tszwStr = L"이건 한글판visual studio community";
-        int tCount = lstrlenW(tszwStr);   //wide string 글자 갯수 세기 함수
-        TextOut(hdc, 0, 75, tszwStr, tCount);
-
-        //사각형
-        Rectangle(hdc, 200, 200, 200 + 100, 200 + 50);
-
-        //선분 그리기
-        MoveToEx(hdc, 550, 200, nullptr);
-        LineTo(hdc, 600, 300);
-
-        //삼각형 그리기
-        MoveToEx(hdc, 350, 200, nullptr);
-        LineTo(hdc, 450, 300);
-        LineTo(hdc, 500, 200);
-        LineTo(hdc, 350, 200);
-
-        //타원
-        Ellipse(hdc, 400, 100, 400 + 100, 100 + 50);
-
-        //원
-        Ellipse(hdc, 0, 400, 0 + 100, 400 + 100);
-        */
+            
         
         EndPaint(hWnd, &ps);   //DC를 해제
     }

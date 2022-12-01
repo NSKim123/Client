@@ -1,4 +1,5 @@
 #pragma once
+#include "ryumacro.h"
 
 /*
 	구조화 프로그래밍 structured programming
@@ -24,6 +25,7 @@
 	iii) GetInstance() 함수의 정의에는 객체의 최대 생성갯수를 1개로 제한하는 판단제어구조를 위치시킨다.
 */
 
+/*
 class CInputMgr
 {
 private:
@@ -38,4 +40,9 @@ public:
  	static CInputMgr* GetInstance();
 	static void ReleaseInstance();
 };
+*/
 
+class CInputMgr
+{
+	SINGLETON_DECLARE(CInputMgr);
+};
