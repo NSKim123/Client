@@ -65,12 +65,16 @@ void CInputMgr::Update()
 			//down도 아니고 press 도 아니다 ---> 처음 눌린 것이다.
 			if (!tItor->second->mIsDown && !tItor->second->mIsPress)
 			{
-
+				tItor->second->mIsDown = true; //
+				tItor->second->mIsPress = false;
+				tItor->second->mIsUp = false;
 			}
 			//down이고 press는 아니다 ---> 눌리고 있는 중이다.
 			else if(tItor->second->mIsDown && !tItor->second->mIsPress)
 			{
-
+				tItor->second->mIsDown = false;
+				tItor->second->mIsPress = true; //
+				tItor->second->mIsUp = false;
 			}
 		}
 		//해당 입력에 대해 눌림이 없다.
@@ -79,12 +83,16 @@ void CInputMgr::Update()
 			//down 이거나 press 이다 ---> 눌림이 있다가 떼어지는 것이다.
 			if (tItor->second->mIsDown || tItor->second->mIsPress)
 			{
-
+				tItor->second->mIsDown = false;
+				tItor->second->mIsPress = false; 
+				tItor->second->mIsUp = true; //
 			}
 			//up 이다 -----> 아무 입력도 없는 상태이다.
 			else if (tItor->second->mIsUp)
 			{
-
+				tItor->second->mIsDown = false;
+				tItor->second->mIsPress = false; 
+				tItor->second->mIsUp = false;
 			}
 		}
 	}
@@ -108,7 +116,7 @@ SKeyInfo* CInputMgr::FindKey(const string& tStrKey) const
 }
 
 //임의의 입력에 대한 상태여부
-bool CInputMgr::KetDown(const string& tStrKey) const
+bool CInputMgr::KeyDown(const string& tStrKey) const
 {
 	SKeyInfo* tpInfo = FindKey(tStrKey);
 
@@ -119,7 +127,7 @@ bool CInputMgr::KetDown(const string& tStrKey) const
 
 	return tpInfo->mIsDown;
 }
-bool CInputMgr::KetPress(const string& tStrKey) const
+bool CInputMgr::KeyPress(const string& tStrKey) const
 {
 	SKeyInfo* tpInfo = FindKey(tStrKey);
 
@@ -130,7 +138,7 @@ bool CInputMgr::KetPress(const string& tStrKey) const
 
 	return tpInfo->mIsPress;
 }
-bool CInputMgr::KetUp(const string& tStrKey) const
+bool CInputMgr::KeyUp(const string& tStrKey) const
 {
 	SKeyInfo* tpInfo = FindKey(tStrKey);
 

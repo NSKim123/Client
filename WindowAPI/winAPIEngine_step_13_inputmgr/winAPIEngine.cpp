@@ -13,6 +13,8 @@
 
 #include "ryumacro.h"
 
+#include "CInputMgr.h"
+
 using namespace std;
 /*
     이번 예시에서는 input 관리자를 만들도록 하자.
@@ -92,7 +94,9 @@ public:
         mpUnit->SetAnchorPoint(0.5f, 0.5f);
         mpUnit->SetTexture(mpTexture);
                 
-
+        CInputMgr::GetInstance()->AddKey("OnMoveLt", 'A');
+        CInputMgr::GetInstance()->AddKey("OnMoveRt", 'D');
+        CInputMgr::GetInstance()->AddKey("OnFire", VK_SPACE);
     }
     virtual void OnDestroy() override
     {
@@ -133,21 +137,9 @@ public:
         CAPIEngine::OnUpdate();
 
         //update
-
-        //& 비트연산의 이유
-        //GetAsyncKeyState 의 리턴값은 다음과 같다.
-        /*
-            0x0000: 이전에 눌림 없음. 호출시점에 눌림 없음 <-- 안눌림
-            0x0001: 이전에 눌림 있음. 호출시점에 눌림 없음 <-- 떼어짐
-
-            0x8000: 이전에 눌림 없음. '호출시점에 눌림' 없음 <-- 새롭게 눌림
-            0x0001: 이전에 눌림 있음. '호출시점에 눌림' 있음 <-- 눌리고 있음
-
-            이것을 알아오기 위함이다.
-
-            비트연산으로 계산하므로 밑에 두가지 경우가 참이 된다.
-        */
+               
         
+        /*
         SVector2D tVelocity;//지역변수로 설정해서, 키입력이 없다면 영벡터가 되어 움직이지 않게 된다.
         //A키가 눌리고 있다면
         mpUnit->SetVelocity(tVelocity);
@@ -189,6 +181,47 @@ public:
         //속도에 의한 이동 코드
         mpUnit->Update();
         //mpUnit->mPosition = mpUnit->mPosition + tVelocity * 0.1f;
+        */
+        SVector2D tVelocity;//지역변수로 설정해서, 키입력이 없다면 영벡터가 되어 움직이지 않게 된다.
+        //A키가 눌리고 있다면
+        mpUnit->SetVelocity(tVelocity);
+        //mpUnit->SetVelocity(tVelocity)
+        if (CInputMgr::GetInstance()->KeyPress("OnMoveLt"))   //<--GetAsyncKeyState함수가 호출되는 시점에 A키 눌림이 있다.
+        {
+            //현재 위치 = 이전위치 + 속도
+            //'오일러 축차적 적분법'에 의한 위치 이동 코드
+            //mpUnit->mPosition.mX = mpUnit->mPosition.mX - 0.1f;
+
+            //속도 설정 (-1,0)
+            tVelocity.mX = -1.0f;
+            tVelocity.mY = 0.0f;
+
+            mpUnit->SetVelocity(tVelocity * 0.1f);
+
+            OutputDebugString(L"key input A\n");
+
+        }
+        //D키가 눌리고 있다면
+        if (CInputMgr::GetInstance()->KeyPress("OnMoveRt"))   //<--GetAsyncKeyState함수가 호출되는 시점에 D키 눌림이 있다.
+        {
+            //mpUnit->mPosition.mX = mpUnit->mPosition.mX + 0.1f;
+
+            //속도 설정 (+1,0)
+            tVelocity.mX = 1.0f;
+            tVelocity.mY = 0.0f;
+
+            mpUnit->SetVelocity(tVelocity * 0.1f);
+
+            OutputDebugString(L"key input D\n");
+        }
+        if (CInputMgr::GetInstance()->KeyUp("OnFire"))
+        {
+            OutputDebugString(L"Fire Bullet!....VK_SPACE\n");
+        }
+
+
+        //속도에 의한 이동 코드
+        mpUnit->Update();
 
         //render
         this->Clear(1.0f, 0.0f, 0.0f);

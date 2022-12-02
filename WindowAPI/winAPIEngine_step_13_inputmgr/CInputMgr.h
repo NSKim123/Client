@@ -66,16 +66,19 @@ class CInputMgr
 private:
 	//해쉬테이블, O(1) 검색속도를 가진다. '키/값'쌍의 데이터를 다룬다.
 	unordered_map<string, SKeyInfo*> mMapKeys;  //입력정보들을 담아둘 자료구조
-	
+
+private:
+	SKeyInfo* FindKey(const string& tStrKey) const;   //임의의 입력정보 검색, 검색키는 문자열 타입
+
 public:
 	void Update();  //입력의 상태(down, press, up) 결정(갱신)
 
-	SKeyInfo* FindKey(const string& tStrKey) const;   //임의의 입력정보 검색, 검색키는 문자열 타입
+	
 	
 	//임의의 입력에 대한 상태여부
-	bool KetDown(const string& tStrKey) const;
-	bool KetPress(const string& tStrKey) const;
-	bool KetUp(const string& tStrKey) const;
+	bool KeyDown(const string& tStrKey) const;
+	bool KeyPress(const string& tStrKey) const;
+	bool KeyUp(const string& tStrKey) const;
 
 	//입력정보 등록 함수
 
