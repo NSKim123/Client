@@ -1,0 +1,17 @@
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_1_inheritance\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_2_msgloop\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_3_onupdate\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_4_unit_updatemethod\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_5_bitmap\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_6_clear_doublebuffer\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_7_clearcolor\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_8_pivot\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_9_object_vector\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_10_ref\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_11_encapsulation\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_12_inputmgr_singleton\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_13_inputmgr\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_14_inputmgr\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_15_deltatime\x64\Debug\winAPIEngine.exe
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIEngine_step_16_prototype_clone\x64\Debug\winAPIEngine.exe

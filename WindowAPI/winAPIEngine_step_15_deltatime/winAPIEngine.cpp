@@ -3,16 +3,11 @@
 
 #include "framework.h"
 #include "winAPIEngine.h"
-
 #include "CAPIEngine.h"
 #include "CUnit.h"
-
 #include "CTexture.h"
-
 #include <list>
-
 #include "ryumacro.h"
-
 #include "CInputMgr.h"
 
 using namespace std;
@@ -21,8 +16,57 @@ using namespace std;
 
         프레임 기반 진행 vs 시간 기반 진행
 
-       
+        this->mPosition = this->mPosition + mVelocity;
+        현재위치 = 이전위치 + 속도*시간간격
+        시간간격 <--- 1프레임
 
+        초당 프레임 : 1초에 프레임의 갯수가 몇개이냐
+
+        프레임 기반 진행의 문제점 
+        :컴퓨터의 성능에 따라 게임월드의 진행 속도가 달라진다.
+        --> 실제 시간 기반 진행으로 만드려면 무슨 개념이 필요한가?
+        --> N프레임 : 1초 = 1프레임 : x초
+            x =1/N (여기서 N은 초당 프레임) 
+            즉, 실제 시간기반으로 진행하려면 
+            시간 간격의 기준이 프레임이 아니라 1초를 잘게 쪼갠 실제 시간이 필요하다.
+            -->즉, '한 프레임에 걸리는 시간'을 측정하면 된다.
+
+
+        -프레임 기반으로 진행되는 게임 속에서의 예
+        
+            예) 60fps    Frames per second
+                
+                현재위치 = 이전위치 + 50*1프레임
+
+                1초에 3000픽셀 움직임
+       
+       -시간 기반으로 진행되는 게임 속에서의 예
+
+            예) 60fps    Frames per second
+
+                현재위치 = 이전위치 + 50*(1/60)
+
+                50*(1/60)*60 = 50 <--1초에 실제로 진행된 수치
+
+            예) 100fps    Frames per second
+
+                현재위치 = 이전위치 + 50*(1/100)
+
+                50*(1/100)*100 = 50 <--1초에 실제로 진행된 수치
+
+        ------------------------------------------------------------------------------------------
+
+        TimeTick : 시스템이 구동되고 나서부터 시스템은 일정 카운트를 센다. 이것을 tick이라고 한다.
+                    <--- 이 tick을 가지고 시간측정을 하자.
+
+        timeGetTime()
+        GetTickCount()
+        <---정밀도가 1/1000초 정도이다. 이것은 비교적 부정확하므로 사용하지 않겠다.
+            클럭장치에 의해 틱을 센다.
+
+        QueryPerformanceCounter
+        <---정밀도가 1/1,000,000초 정도이다. 이것은 비교적 정확하므로 이것을 사용하겠다.
+            CPU의 주파수에 기반하여 틱을 센다.
 */
 
 
@@ -127,9 +171,9 @@ public:
 
         CAPIEngine::OnDestroy();
     }
-    virtual void OnUpdate() override
+    virtual void OnUpdate(float tDeltaTime) override
     {
-        CAPIEngine::OnUpdate();
+        CAPIEngine::OnUpdate(tDeltaTime);
 
         //update
                
@@ -191,7 +235,8 @@ public:
             tVelocity.mX = -1.0f;
             tVelocity.mY = 0.0f;
 
-            mpUnit->SetVelocity(tVelocity * 0.1f);
+            //mpUnit->SetVelocity(tVelocity * 0.1f);
+            mpUnit->SetVelocity(tVelocity * 350.0f);   //초당 350 픽셀
 
             OutputDebugString(L"key input A\n");
 
@@ -205,7 +250,8 @@ public:
             tVelocity.mX = 1.0f;
             tVelocity.mY = 0.0f;
 
-            mpUnit->SetVelocity(tVelocity * 0.1f);
+            //mpUnit->SetVelocity(tVelocity * 0.1f);
+            mpUnit->SetVelocity(tVelocity * 350.0f);
 
             OutputDebugString(L"key input D\n");
         }
@@ -219,7 +265,7 @@ public:
         }
 
         //속도에 의한 이동 코드
-        mpUnit->Update();
+        mpUnit->Update(tDeltaTime);
 
         //render
         this->Clear(1.0f, 0.0f, 0.0f);

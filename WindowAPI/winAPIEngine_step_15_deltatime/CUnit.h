@@ -19,7 +19,7 @@ public:
 public:
 	void Render(CAPIEngine* tpEngine);
 	
-	void Update();
+	void Update(float tDeltaTime);
 
 	inline void SetPosition(float tX, float tY)
 	{
