@@ -141,6 +141,7 @@
   <ItemGroup>
     <ClInclude Include="CActor.h" />
     <ClInclude Include="CAPIEngine.h" />
+    <ClInclude Include="CBullet.h" />
     <ClInclude Include="CInputMgr.h" />
     <ClInclude Include="CObjectRyu.h" />
     <ClInclude Include="CRef.h" />
@@ -156,6 +157,7 @@
   <ItemGroup>
     <ClCompile Include="CActor.cpp" />
     <ClCompile Include="CAPIEngine.cpp" />
+    <ClCompile Include="CBullet.cpp" />
     <ClCompile Include="CInputMgr.cpp" />
     <ClCompile Include="CObjectRyu.cpp" />
     <ClCompile Include="CRef.cpp" />
