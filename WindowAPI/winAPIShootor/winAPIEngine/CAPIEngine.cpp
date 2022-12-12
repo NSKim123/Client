@@ -22,8 +22,12 @@ CAPIEngine::~CAPIEngine()
 BOOL CAPIEngine::Create(HINSTANCE hInstance, int nCmdShow)
 {
     // 전역 문자열을 초기화합니다.
-    LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
-    LoadStringW(hInstance, IDC_WINAPIENGINE, szWindowClass, MAX_LOADSTRING);
+    /*LoadStringW(hInstance, IDS_APP_TITLE, szTitle, MAX_LOADSTRING);
+    LoadStringW(hInstance, IDC_WINAPIENGINE, szWindowClass, MAX_LOADSTRING);*/
+
+    lstrcpyW(szTitle, L"winAPIShooter Title");
+    lstrcpyW(szWindowClass, L"winAPIShooter");
+
     MyRegisterClass(hInstance);
 
     // 애플리케이션 초기화를 수행합니다:
@@ -246,12 +250,12 @@ ATOM CAPIEngine::MyRegisterClass(HINSTANCE hInstance)
     wcex.cbClsExtra = 0;
     wcex.cbWndExtra = 0;
     wcex.hInstance = hInstance;
-    wcex.hIcon = LoadIcon(hInstance, MAKEINTRESOURCE(IDI_WINAPIENGINE));
+    wcex.hIcon = LoadIcon(hInstance, nullptr);  //
     wcex.hCursor = LoadCursor(nullptr, IDC_ARROW);
     wcex.hbrBackground = (HBRUSH)(COLOR_WINDOW + 1);
-    wcex.lpszMenuName = MAKEINTRESOURCEW(IDC_WINAPIENGINE);
+    wcex.lpszMenuName = nullptr; //
     wcex.lpszClassName = szWindowClass;
-    wcex.hIconSm = LoadIcon(wcex.hInstance, MAKEINTRESOURCE(IDI_SMALL));
+    wcex.hIconSm = LoadIcon(wcex.hInstance, nullptr); //
 
     return RegisterClassExW(&wcex);
 }

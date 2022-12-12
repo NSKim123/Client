@@ -26,8 +26,7 @@ CUnit::~CUnit()
 CUnit::CUnit(const CUnit& t)
 	:CObjectRyu(t)
 {
-	//mPosition = t.mPosition;
-	
+	//mPosition = t.mPosition;	
 	//CObjectRyu::CObjectRyu(t);
 
 	/*mX = t.mX;
