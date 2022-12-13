@@ -12,6 +12,8 @@
 #include "CActor.h"
 #include "CBullet.h"
 
+#include "CEnemy.h"
+
 using namespace std;
 
 //소스코드상에서 설정
@@ -21,23 +23,13 @@ using namespace std;
 /*
     이번 예시에서는 다음의 사항들을 만들어보자.
 
-    1) CUnit에 활성, 비활성 변수 추가
-    
-    2) 주인공 기체의 일반탄환 발사
-        
-        제작시 정해진 방향으로 발사되는 탄환을 '일반탄환'이라고 정하겠다.
-        주인공 기체의 일반탄환은 '윗쪽 방향'으로 '발사'된다.
-        (윈도우 좌표계를 사용하고 있으므로 y축 음의 방향이다.)
+    1) 적 기체 생성
 
-        발사 루틴
-        //  탄환 발사
-        // i) 탄환의 '발사시작지점'을 설정한다.
-        // ii) 탄환의 '속도'를 설정한다.
-        // iii) 탄환을 '활성화'시킨다.
+        CEnemy클래스 
 
-    3) 연사
+    2) 적 기체 일반탄환 발사
 
-    4) 주인공 기체의 좌우 경계처리
+    3) 적 기체 좌우 이동, 좌우 경계 처리
 
 */
 
@@ -47,14 +39,18 @@ class CRyuEngine : public CAPIEngine
     //자원 resource
     CTexture* mpTexture = nullptr;
     CTexture* mpTexBullet = nullptr; //탄환 비트맵 이미지 데이터 자원
+    CTexture* mpTexEnemy = nullptr; //적 비트맵 데이터 자원
 
     //원본 객체 ( 주인공 기체의 원본 객체 ) prefab
     CUnit* PFActor = nullptr;
     CUnit* PFBullet = nullptr;  //탄환 원본 객체
+    CUnit* PFEnemy = nullptr;  //적 원본 객체
 
     //실제 객체 object
     CActor* mpActor = nullptr;  
     vector<CBullet*> mBullets;  //실제 주인공 기체가 사용할 탄환객체들
+
+    CEnemy* mpEnemy = nullptr;
 
     //test
     //CObjectRyu* testObject = nullptr;
@@ -107,6 +103,9 @@ public:
         mpTexBullet = new CTexture();
         mpTexBullet->LoadTexture(hInst, mhDC, L"resources/bongbullet.bmp");
 
+        mpTexEnemy = new CTexture();
+        mpTexEnemy->LoadTexture(hInst, mhDC, L"resources/bongenemy.bmp");
+
         //원본객체 생성
         /*
         PFActor = new CActor();
@@ -119,6 +118,8 @@ public:
         */
         PFActor = CreatePrefab<CActor>(mpTexture, 0.5f, 0.5f, SVector2D(800 * 0.5f, 600 - 50 - 100.0f));
         PFBullet = CreatePrefab<CBullet>(mpTexBullet, 0.5f, 0.5f, SVector2D(800 * 0.5f, 600 - 50 - 100.0f));
+
+        PFEnemy = CreatePrefab<CEnemy>(mpTexEnemy, 0.5f, 0.5f, SVector2D(800 * 0.5f, 100.0f));
         //실제 객체 생성
         //mpActor = static_cast<CActor*>(PFActor->clone());   
         mpActor = InstantPrefab<CActor>(PFActor);      
@@ -139,6 +140,9 @@ public:
             tpBullet->Release();
             tpBullet = nullptr;
         }
+         //
+        mpEnemy = InstantPrefab<CEnemy>(PFEnemy);        
+        mpEnemy->Addref();
 
 
         //입력 매핑 등록
@@ -167,6 +171,7 @@ public:
           */
         //실제 객체 소멸
         //SAFE_RELEASE(mpActor)
+        DestroyObject<CEnemy>(mpEnemy);
         DestroyObject<CActor>(mpActor);
         vector<CBullet*>::iterator tItor;
         for (tItor = mBullets.begin(); tItor != mBullets.end(); tItor++)
@@ -176,7 +181,9 @@ public:
 
 
 
+
         //원본 객체 소멸
+        DestroyPrefab(PFEnemy);
         DestroyPrefab(PFBullet);
         DestroyPrefab(PFActor);
         //SAFE_DELETE(PFActor)
@@ -195,6 +202,7 @@ public:
         //단, 디버깅이 안 된다.
         SAFE_DELETE(mpTexture)
         SAFE_DELETE(mpTexBullet)
+        SAFE_DELETE(mpTexEnemy)
 
         CAPIEngine::OnDestroy();
     }
@@ -301,6 +309,7 @@ public:
         {
             (*tItor)->Update(tDeltaTime);
         }
+        mpEnemy->Update(tDeltaTime);
 
         //render
         this->Clear(1.0f, 0.0f, 0.0f);
@@ -312,7 +321,10 @@ public:
         {
             (*tItor)->Render();
         }
-           
+        
+        mpEnemy->Render();
+
+
         this->Present();             
         
     }
