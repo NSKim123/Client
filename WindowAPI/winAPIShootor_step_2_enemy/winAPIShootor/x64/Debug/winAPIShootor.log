@@ -1,7 +1,9 @@
-﻿  CEnemy.cpp
+﻿  CActor.cpp
+  CBullet.cpp
+  CEnemy.cpp
   main.cpp
 C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_2_enemy\winAPIEngine\CInputMgr.h(143,1): warning C4311: '형식 캐스트': 'const char *'에서 'DWORD'(으)로 포인터가 잘립니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_2_enemy\winAPIShootor\main.cpp(149,1): message : 컴파일되는 함수 템플릿 인스턴스화 'bool CInputMgr::AddKey<char[9],char>(const T (&),const char &)'에 대한 참조를 확인하세요.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_2_enemy\winAPIShootor\main.cpp(190,1): message : 컴파일되는 함수 템플릿 인스턴스화 'bool CInputMgr::AddKey<char[9],char>(const T (&),const char &)'에 대한 참조를 확인하세요.
           with
           [
               T=char [9]

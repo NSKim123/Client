@@ -19,10 +19,10 @@ public:
 public:
 	virtual void Create(CAPIEngine* tpEngine);
 	virtual void Destroy();
-
-	virtual void Render();
-	
+	virtual void Render();	
 	virtual void Update(float tDeltaTime);
+
+	virtual void OnTimer() {};
 
 	inline void SetPosition(SVector2D tPositon)
 	{

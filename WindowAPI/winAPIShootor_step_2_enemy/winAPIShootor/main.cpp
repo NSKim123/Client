@@ -13,6 +13,7 @@
 #include "CBullet.h"
 
 #include "CEnemy.h"
+#include "config.h"
 
 using namespace std;
 
@@ -28,6 +29,22 @@ using namespace std;
         CEnemy클래스 
 
     2) 적 기체 일반탄환 발사
+
+        일반탄환 한발
+
+        연사 <--'타이머' 기능이 필요하다. 
+
+        i) window api에서 제공하는 타이머를 간단히 살펴보자.
+        다음과 같은 문제점이 있다.
+          <-- 정밀도가 낮다
+          <-- 게임 프로그램 구조를 객체지향으로 처리하는데 문제가 있다.
+
+        그런데,
+        우리는 이미 시간측정을 좀 더 정밀하게 하고 있었다. -> deltatime
+
+        ii) deltatime 개념을 이용하여 타이머를 직접 제작하도록 하자.
+
+            deltatime을 누적하여 의도하는 일정시간 간격이 되었는지 판단하는 형태로 타이머를 작성하겠다.
 
     3) 적 기체 좌우 이동, 좌우 경계 처리
 
@@ -51,6 +68,7 @@ class CRyuEngine : public CAPIEngine
     vector<CBullet*> mBullets;  //실제 주인공 기체가 사용할 탄환객체들
 
     CEnemy* mpEnemy = nullptr;
+    vector<CBullet*> mBulletsEnemy;  //실제 적 기체가 사용할 탄환객체들
 
     //test
     //CObjectRyu* testObject = nullptr;
@@ -65,6 +83,14 @@ private:
     CRyuEngine& operator=(const CRyuEngine& t) = delete;
 
 public:
+        
+    //함수포인터에 넣기 위해 정적으로 만들어주었다.
+    static VOID CALLBACK  OnTimer_0(HWND thWnd, UINT uMSG, UINT_PTR idEvent, DWORD dwTime)
+    {
+        //mpEnemy->DoFire(mBulletsEnemy); <--불가능. 정적함수에서 비정적 멤버변수에 접근이 불가하다.
+
+        OutputDebugString(L"=========OnTimer_0, Enemy Fire!=======\n");
+    }
 
     virtual void OnCreate() override
     {
@@ -127,7 +153,7 @@ public:
         mpActor->Addref();
 
         CBullet* tpBullet = nullptr;
-        for (int ti  = 0; ti < 10; ++ti)
+        for (int ti  = 0; ti < BULLET_COUNT_MAX; ++ti)
         {
             tpBullet = InstantPrefab<CBullet>(PFBullet);            
             tpBullet->Addref();
@@ -140,10 +166,25 @@ public:
             tpBullet->Release();
             tpBullet = nullptr;
         }
-         //
+        //
         mpEnemy = InstantPrefab<CEnemy>(PFEnemy);        
         mpEnemy->Addref();
 
+        //적 기체의 일반탄환들
+        tpBullet = nullptr;
+        for (int ti = 0; ti < BULLET_COUNT_MAX; ++ti)
+        {
+            tpBullet = InstantPrefab<CBullet>(PFBullet);
+            tpBullet->Addref();
+
+            tpBullet->SetIsActive(false);   //탄환객체들은 비활성으로 생성
+
+            mBulletsEnemy.push_back(tpBullet);
+            tpBullet->Addref();
+
+            tpBullet->Release();
+            tpBullet = nullptr;
+        }
 
         //입력 매핑 등록
         CInputMgr::GetInstance()->AddKey("OnMoveLt", 'A');
@@ -151,9 +192,21 @@ public:
         CInputMgr::GetInstance()->AddKey("OnFire", VK_SPACE);
 
         CInputMgr::GetInstance()->AddKey("OnTest", VK_LCONTROL, 'H');
+
+
+        //test
+        //mpEnemy->DoFire(mBulletsEnemy);
+                
+        //3초 간격으로 작동하는 윈도우 타이머를 하나 만들고 설정했다.
+        // 마지막 인자를 널로 하면, 윈도우 메시지를 이용하여 처리하겠다는 의미이다.
+        //SetTimer(this->mhWnd, 0, 3000, nullptr);
+
+        SetTimer(this->mhWnd, 0, 3000, OnTimer_0);
     }
     virtual void OnDestroy() override
     {
+        KillTimer(this->mhWnd, 0);
+
         /*if (nullptr != mpTexture)
         {
             delete mpTexture;
@@ -169,15 +222,19 @@ public:
               mpUnit = nullptr;
           }
           */
-        //실제 객체 소멸
-        //SAFE_RELEASE(mpActor)
-        DestroyObject<CEnemy>(mpEnemy);
-        DestroyObject<CActor>(mpActor);
-        vector<CBullet*>::iterator tItor;
-        for (tItor = mBullets.begin(); tItor != mBullets.end(); tItor++)
+        for (vector<CBullet*>::iterator tItor = mBulletsEnemy.begin(); tItor != mBulletsEnemy.end(); tItor++)
         {
             SAFE_RELEASE((*tItor))  //(*tItor)->~~   이런 형태로 표현하기 위해 괄호를 써야한다.
         }
+        DestroyObject<CEnemy>(mpEnemy);
+
+        for (vector<CBullet*>::iterator tItor = mBullets.begin(); tItor != mBullets.end(); tItor++)
+        {
+            SAFE_RELEASE((*tItor))  //(*tItor)->~~   이런 형태로 표현하기 위해 괄호를 써야한다.
+        }
+        DestroyObject<CActor>(mpActor);
+        
+        
 
 
 
@@ -304,26 +361,46 @@ public:
 
         //속도에 의한 이동 코드
         mpActor->Update(tDeltaTime);
-
         for (vector<CBullet*>::iterator tItor = mBullets.begin(); tItor != mBullets.end(); tItor++)
         {
             (*tItor)->Update(tDeltaTime);
         }
+
         mpEnemy->Update(tDeltaTime);
 
+        //적 기체가 일반탄환을 일정시간 간격으로 발사
+
+        if (mpEnemy->mTimeTick >= 2.0f)
+        {
+            //todo 일정시간 간격으로 실행할 코드
+            mpEnemy->DoFire(mBulletsEnemy);
+
+            //time tick을 초기 상태로 되돌려줌
+            mpEnemy->mTimeTick = 0.0f;
+        }
+        else
+        {
+            mpEnemy->mTimeTick = mpEnemy->mTimeTick + tDeltaTime;
+        }
+
+        for (vector<CBullet*>::iterator tItor = mBulletsEnemy.begin(); tItor != mBulletsEnemy.end(); tItor++)
+        {
+            (*tItor)->Update(tDeltaTime);
+        }
         //render
         this->Clear(1.0f, 0.0f, 0.0f);
                         
-        mpActor->Render();
-
-        
+        mpActor->Render();        
         for (vector<CBullet*>::iterator tItor = mBullets.begin(); tItor != mBullets.end(); tItor++)
         {
             (*tItor)->Render();
         }
         
         mpEnemy->Render();
-
+        for (vector<CBullet*>::iterator tItor = mBulletsEnemy.begin(); tItor != mBulletsEnemy.end(); tItor++)
+        {
+            (*tItor)->Render();
+        }
 
         this->Present();             
         

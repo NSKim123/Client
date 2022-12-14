@@ -1,6 +1,7 @@
 #include "CActor.h"
 #include "CBullet.h"
 #include <Windows.h>
+
 CActor::CActor()
 {
     mCurIndexBullet = 0;
