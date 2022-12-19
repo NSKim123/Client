@@ -57,6 +57,37 @@ void CEnemy::DoFire(vector<CBullet*>& tBullets)
     }
 }
 
+void CEnemy::DoFireAimed(vector<CBullet*>& tBullets, CUnit* tpUnit)
+{
+    tBullets[mCurIndexBullet]->SetPosition(this->GetPosition());  //발사시작지점은 주인공기체의 위치
+
+    //조준탄환의 속도를 구하자
+
+    //임의의 방향의 임의의 크기의 벡터 = 목적지점 - 시작지점
+    SVector2D tStartP = this->GetPosition();
+    SVector2D tTargetP = tpUnit->GetPosition();
+
+    SVector2D tVector = tTargetP - tStartP;
+    SVector2D tUnitVector = tVector.Normalize();
+
+    float tScalarSpeed = 200.0f;
+    SVector2D tVelocity = tUnitVector * tScalarSpeed;
+
+    tBullets[mCurIndexBullet]->SetVelocity(tVelocity);      //벡터의 스칼라곱
+    tBullets[mCurIndexBullet]->SetIsActive(true);
+
+
+    if (mCurIndexBullet < tBullets.size() - 1)
+    {
+        //탄환 순번 증가
+        ++mCurIndexBullet;
+    }
+    else
+    {
+        mCurIndexBullet = 0;
+    }
+}
+
 void CEnemy::OnTimer()
 {
     OutputDebugString(L"OnTimer Enemy Fire\n");

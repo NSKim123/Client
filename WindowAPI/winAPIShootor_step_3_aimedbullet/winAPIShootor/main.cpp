@@ -133,8 +133,10 @@ class CRyuEngine : public CAPIEngine
     vector<CBullet*> mBullets;      //실제 주인공 기체가 사용할 탄환객체들 
 
     CEnemy* mpEnemy = nullptr;      //적 객체
-    vector<CBullet*> mBulletsEnemy;      //실제 적 기체가 사용할 탄환객체들    
+    vector<CBullet*> mBulletsEnemy;      //실제 적 기체가 사용할  일반탄환객체들    
 
+    CEnemy* mpEnemyAimed = nullptr;
+    vector<CBullet*> mBulletsEnemyAimed;    //조준탄환 객체들
 
 public:
     CRyuEngine() {};
@@ -263,7 +265,22 @@ public:
             tpBullet = nullptr;
         }
 
+        mpEnemyAimed = InstantObject<CEnemy>(PFEnemy);               //원본객체를 복제하여 객체를 생성
+        mpEnemyAimed->AddRef();
 
+        for (int ti = 0; ti < BULLET_COUNT_MAX; ++ti)
+        {
+            tpBullet = InstantObject<CBullet>(PFBullet);               //원본객체를 복제하여 객체를 생성
+            tpBullet->AddRef();
+
+            tpBullet->SetIsActive(false);           //탄환객체들은 비활성으로 생성
+
+            mBulletsEnemyAimed.push_back(tpBullet);
+            tpBullet->AddRef();
+
+            tpBullet->Release();
+            tpBullet = nullptr;
+        }
 
         //입력 매핑 등록
         CInputMgr::GetInstance()->AddKey("OnMoveLt", 'A');
@@ -306,6 +323,15 @@ public:
             delete mpTexture;
             mpTexture = nullptr;
         }*/
+
+        //적기체의 조준탄환 객체들 해제
+        for (vector<CBullet*>::iterator tItor = mBulletsEnemyAimed.begin(); tItor != mBulletsEnemyAimed.end(); ++tItor)
+        {
+            SAFE_RELEASE((*tItor));       //(*tItor)-> 이런 형태로 치환하기 위해 괄호를 써줬다.            
+        }
+
+        DestroyObject<CEnemy>(mpEnemyAimed);
+
         //적기체의 일반탄환 객체들 해제
         for (vector<CBullet*>::iterator tItor = mBulletsEnemy.begin(); tItor != mBulletsEnemy.end(); ++tItor)
         {
@@ -457,12 +483,35 @@ public:
             mpEnemy->mTimeTick = mpEnemy->mTimeTick + tDeltaTime;
         }
 
-
-
         for (vector<CBullet*>::iterator tItor = mBulletsEnemy.begin(); tItor != mBulletsEnemy.end(); ++tItor)
         {
             (*tItor)->Update(tDeltaTime);
         }
+
+        mpEnemyAimed->Update(tDeltaTime);
+
+        //적 기체가 일반탄환을 일정시간 간격으로 발사
+
+        if (mpEnemyAimed->mTimeTick >= 1.0f)
+        {
+            //todo 일정시간 간격으로 실행할 코드
+            mpEnemyAimed->DoFireAimed(mBulletsEnemyAimed, mpActor);
+
+            //time tick을 초기 상태로 되돌려줌
+            mpEnemyAimed->mTimeTick = 0.0f;
+        }
+        else
+        {
+            //delta time 을 누적
+            mpEnemyAimed->mTimeTick = mpEnemyAimed->mTimeTick + tDeltaTime;
+        }
+
+
+        for (vector<CBullet*>::iterator tItor = mBulletsEnemyAimed.begin(); tItor != mBulletsEnemyAimed.end(); ++tItor)
+        {
+            (*tItor)->Update(tDeltaTime);
+        }
+        
 
 
 
@@ -483,7 +532,11 @@ public:
         {
             (*tItor)->Render();
         }
-
+        mpEnemyAimed->Render();
+        for (vector<CBullet*>::iterator tItor = mBulletsEnemyAimed.begin(); tItor != mBulletsEnemyAimed.end(); ++tItor)
+        {
+            (*tItor)->Render();
+        }
                 
         this->Present();
     }
