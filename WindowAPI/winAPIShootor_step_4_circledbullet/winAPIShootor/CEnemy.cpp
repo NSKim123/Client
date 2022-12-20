@@ -90,7 +90,7 @@ void CEnemy::DoFireAimed(vector<CBullet*>& tBullets, CUnit* tpUnit)
 
 void CEnemy::DoFireCircled(vector<CBullet*>& tBullets)
 {
-    for (int ti = 0; ti < 8;++ti)
+    for (int ti = mCurIndexBullet; ti < mCurIndexBullet + 8;++ti)
     {
         tBullets[ti]->SetPosition(this->GetPosition());  //발사시작지점은 주인공기체의 위치
         
@@ -103,16 +103,16 @@ void CEnemy::DoFireCircled(vector<CBullet*>& tBullets)
         tBullets[ti]->SetIsActive(true);
     }
 
-    /*
-    if (mCurIndexBullet < tBullets.size() - 1)
+    
+    if (mCurIndexBullet < tBullets.size() - 8)
     {
         //탄환 순번 증가
-        ++mCurIndexBullet;
+        mCurIndexBullet += 8;
     }
     else
     {
         mCurIndexBullet = 0;
-    }*/
+    }
 }
 
 void CEnemy::OnTimer()
