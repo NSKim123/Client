@@ -60,6 +60,35 @@ void CCollider::Update()
 	mPosition = mpObject->GetPosition();
 }
 
+void CCollider::AddToCollisions(CCollider* tpCollider)
+{
+	mCollisions.push_back(tpCollider);
+}
+void CCollider::EraseFromCollisions(CCollider* tpCollider)
+{
+	list<CCollider*>::iterator tItor;
+	for (tItor = mCollisions.begin();tItor != mCollisions.end();++tItor)
+	{
+		if ((*tItor) == tpCollider)
+		{
+			mCollisions.erase(tItor);
+			break;
+		}
+	}
+}
+bool CCollider::DoCheckBeInCollisions(CCollider* tpCollider)
+{
+	list<CCollider*>::iterator tItor;
+	for (tItor = mCollisions.begin();tItor != mCollisions.end();++tItor)
+	{
+		if ((*tItor) == tpCollider)
+		{
+			return true;
+		}
+	}
+
+	return false;
+}
 
 bool CCollider::DoCollisionAABB(CCollider* tOther)
 {
@@ -89,7 +118,8 @@ bool CCollider::DoCollisionAABB(CCollider* tOther)
 	{
 		return false;
 	}
-	if (tLeftX > tRightX)
+	//if (tLeftX > tRightX)
+	if (tLeftX > tRightX_Other)
 	{
 		return false;
 	}

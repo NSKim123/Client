@@ -1,23 +1,17 @@
 ﻿  CAPIEngine.cpp
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(225,81): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(225,67): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(225,53): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(225,39): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(254,42): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(254,31): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(254,25): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(254,21): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(267,13): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(267,9): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(228,81): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(228,67): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(228,53): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(228,39): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(257,42): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(257,31): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(257,25): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(257,21): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(270,13): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CAPIEngine.cpp(270,9): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
   CCollider.cpp
-  CCollisionMgr.cpp
-  CInputMgr.cpp
-  CObjectRyu.cpp
-  CRef.cpp
-  CTexture.cpp
   CUnit.cpp
 C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CUnit.cpp(144,34): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
 C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\winAPIEngine\CUnit.cpp(145,35): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
-  SVector2D.cpp
   코드를 생성하고 있습니다...
   winAPIEngine.vcxproj -> C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_7_collisionmgr\bin\winAPIEngine.lib

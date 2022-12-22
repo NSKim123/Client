@@ -4,6 +4,10 @@
 #include <vector>
 using namespace std;
 
+#include <windows.h>
+
+#include "CCollider.h"
+
 class CBullet;
 
 class CEnemy: public CUnit
@@ -33,6 +37,18 @@ public:
 	void DoFireAimed(vector<CBullet*>& tBullets, CUnit* tpUnit);   //조준탄환을 발사하는 기능
 	void DoFireCircled(vector<CBullet*>& tBullets);   //원형탄환을 발사하는 기능
 
+	virtual void OnEnterCollision(CCollider* tOther) override
+	{
+		OutputDebugString(L"CEnemy::OnEnterCollision\n");
+
+		//충돌처리
+
+		//적 비활성화
+		this->SetIsActive(false);
+
+		//상대도 비활성화 (여기서는 주인공기체의 일반탄환)
+		tOther->GetOwnerObject()->SetIsActive(false);
+	}
 
 private:
 	//임의의 탄환 이란 개념

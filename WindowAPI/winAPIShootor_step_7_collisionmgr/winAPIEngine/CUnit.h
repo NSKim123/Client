@@ -27,6 +27,11 @@ public:
 	virtual void OnTimer() {};
 
 
+	virtual void OnEnterCollision(CCollider* tOther) {};
+	virtual void OnStayCollision(CCollider* tOther) {};
+	virtual void OnExitCollision(CCollider* tOther) {};
+
+
 	inline void SetPosition(SVector2D tPosition)
 	{
 		mPosition = tPosition;
