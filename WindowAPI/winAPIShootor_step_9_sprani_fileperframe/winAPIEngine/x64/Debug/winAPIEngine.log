@@ -1,0 +1,3 @@
+﻿  CAniSeq.cpp
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_9_sprani_fileperframe\winAPIEngine\CAniSeq.cpp(17,9): warning C4150: 불완전한 형식 'CTexture'에 대한 포인터를 삭제했습니다. 소멸자가 호출되지 않습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_9_sprani_fileperframe\winAPIEngine\CAniSeq.h(6,7): message : 'CTexture' 선언을 참조하십시오.
