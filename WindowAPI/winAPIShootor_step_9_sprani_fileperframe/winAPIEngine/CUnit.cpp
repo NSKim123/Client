@@ -3,6 +3,7 @@
 #include "CAPIEngine.h"
 #include "CTexture.h"
 #include "CCollider.h"
+#include "CAnimator.h"
 
 CUnit::CUnit()
 	:CObjectRyu(), mRadius(0.0f)
@@ -24,12 +25,14 @@ CUnit::CUnit()
 	mpCollider = nullptr;
 
 	mTag = "";
+
+	mpAnimator = nullptr;
 }
 CUnit::~CUnit()
 {
 	//충돌체 해제 작업
-	SAFE_DELETE(mpCollider);  //안전빵
-
+	SAFE_DELETE(mpCollider)  //안전빵
+	SAFE_DELETE(mpAnimator)
 }
 
 CUnit::CUnit(const CUnit& t)
@@ -67,6 +70,11 @@ CUnit::CUnit(const CUnit& t)
 	mpCollider->SetOwnerObject(this);
 
 	mTag = t.mTag;
+
+	mpAnimator = t.mpAnimator;
+	//mpAnimator = new CAnimator();
+	//*mpAnimator = *t.mpAnimator;
+	////??
 }
 void CUnit::operator=(const CUnit& t)
 {
@@ -107,6 +115,11 @@ void CUnit::operator=(const CUnit& t)
 	mpCollider->SetOwnerObject(this);
 
 	mTag = t.mTag;
+
+	mpAnimator = t.mpAnimator;
+	/*mpAnimator = new CAnimator();
+	*mpAnimator = *t.mpAnimator;*/
+	//??
 }
 
 
@@ -156,7 +169,18 @@ void CUnit::Render()
 		mDisplayX = mPosition.mX - mWidth * mAnchorX;
 		mDisplayY = mPosition.mY - mHeight * mAnchorY;
 
-		mpEngine->DrawTexture(mDisplayX, mDisplayY, mpTexture);
+		//애니메이션 정보가 있으면 애미네이터로 랜더
+		//그렇지 않으면 대표이미지로 랜더
+		if (nullptr != mpAnimator)
+		{
+			mpAnimator->UpdateAnimation(mpEngine->GetDeltaTime());
+			mpAnimator->Render(mDisplayX, mDisplayY);
+		}
+		else
+		{
+			//대표이미지
+			mpEngine->DrawTexture(mDisplayX, mDisplayY, mpTexture);
+		}
 
 		//DEBUG DRAW
 		//mpEngine->DrawCircle(mPosition.mX, mPosition.mY, mRadius);
@@ -169,4 +193,22 @@ void CUnit::Render()
 
 		mpEngine->DrawRect(tPosition.mX - tWidth * tAnchorX, tPosition.mY - tWidth * tAnchorY, tWidth, tHeight);
 	}
+}
+
+CAnimator* CUnit::CreateAnimation(const string& tId, CAPIEngine* tpEngine)
+{
+	mpAnimator = new CAnimator();
+	mpAnimator->SetId(tId);
+	mpAnimator->Create(tpEngine);
+
+	return mpAnimator;
+}
+void CUnit::DestroyAniamtion()
+{
+	if (mpAnimator)
+	{
+		mpAnimator->Destroy();				
+	}
+
+	SAFE_DELETE(mpAnimator)
 }

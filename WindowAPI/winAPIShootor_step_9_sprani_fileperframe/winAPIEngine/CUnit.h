@@ -8,8 +8,8 @@ using namespace std;
 //클래스 전방선언
 class CAPIEngine;
 class CTexture;
-
 class CCollider;
+class CAnimator;
 
 class CUnit: public CObjectRyu
 {
@@ -199,13 +199,15 @@ public:   //일단 쉬운 작성을 위해 은닉화 생략
 	//태그는 문자열 타입으로 하겠다.
 	string mTag = "";
 
+	CAnimator* mpAnimator = nullptr;
 
 public:
 	//순수 가상 함수
 	//clone이라는 형태로 형태를 강제하여 구현하는 것이다
 	virtual CObjectRyu* clone() = 0;
 
-
+	CAnimator* CreateAnimation(const string& tId, CAPIEngine* tpEngine);
+	void DestroyAniamtion();
 	
 };
 

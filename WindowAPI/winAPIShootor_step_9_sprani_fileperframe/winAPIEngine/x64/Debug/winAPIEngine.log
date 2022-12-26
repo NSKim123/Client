@@ -1,3 +1,4 @@
-﻿  CAniSeq.cpp
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_9_sprani_fileperframe\winAPIEngine\CAniSeq.cpp(17,9): warning C4150: 불완전한 형식 'CTexture'에 대한 포인터를 삭제했습니다. 소멸자가 호출되지 않습니다.
-C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_9_sprani_fileperframe\winAPIEngine\CAniSeq.h(6,7): message : 'CTexture' 선언을 참조하십시오.
+﻿  CUnit.cpp
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_9_sprani_fileperframe\winAPIEngine\CUnit.cpp(163,34): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_9_sprani_fileperframe\winAPIEngine\CUnit.cpp(164,35): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  winAPIEngine.vcxproj -> C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_9_sprani_fileperframe\bin\winAPIEngine.lib

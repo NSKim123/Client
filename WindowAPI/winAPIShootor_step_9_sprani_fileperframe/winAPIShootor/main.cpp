@@ -27,6 +27,9 @@
 #include "CCollider.h"
 #include "CCollisionMgr.h"
 
+#include "CAniSeq.h"
+#include "CAnimator.h"
+
 //test
 #include <list>
 using namespace std;
@@ -221,6 +224,12 @@ public:
 
         mpActor = InstantObject<CActor>(PFActor);               //원본객체를 복제하여 객체를 생성
         mpActor->AddRef();
+
+        //테스트용 애니메이터
+        //애니메이터를 만들고 애니메이션 시퀀스를 하나 추가
+        CAnimator* tpAnimator= mpActor->CreateAnimation("AnimActor", this);
+        tpAnimator->AddAniSeq("ani_idle_actor", 1.0f, 2, L"resources/bongbong");
+
 
         CBullet* tpBullet = nullptr;
         for (int ti = 0; ti < BULLET_COUNT_MAX; ++ti)

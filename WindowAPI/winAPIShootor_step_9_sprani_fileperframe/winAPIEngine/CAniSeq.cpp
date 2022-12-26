@@ -1,5 +1,7 @@
 #include "CAniSeq.h"
 #include "ryumacro.h"
+#include "CTexture.h"
+
 CAniSeq::CAniSeq()	
 {
     mId = "";    
@@ -14,7 +16,7 @@ CAniSeq::~CAniSeq()
     vector<CTexture*>::iterator tItor;
     for (tItor = mTexs.begin();tItor != mTexs.end();++tItor)
     {
-        SAFE_DELETE((*tItor));
+        SAFE_DELETE((*tItor));        
     }
     mTexs.clear();
 }
