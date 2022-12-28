@@ -1,0 +1,17 @@
+﻿  CAPIEngine.cpp
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_13_sprani_sheet\winAPIEngine\CAPIEngine.cpp(228,81): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_13_sprani_sheet\winAPIEngine\CAPIEngine.cpp(228,67): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_13_sprani_sheet\winAPIEngine\CAPIEngine.cpp(228,53): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_13_sprani_sheet\winAPIEngine\CAPIEngine.cpp(228,39): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_13_sprani_sheet\winAPIEngine\CAPIEngine.cpp(257,42): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_13_sprani_sheet\winAPIEngine\CAPIEngine.cpp(257,31): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_13_sprani_sheet\winAPIEngine\CAPIEngine.cpp(257,25): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_13_sprani_sheet\winAPIEngine\CAPIEngine.cpp(257,21): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_13_sprani_sheet\winAPIEngine\CAPIEngine.cpp(276,13): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_13_sprani_sheet\winAPIEngine\CAPIEngine.cpp(276,9): warning C4244: '인수': 'float'에서 'int'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  CAnimator.cpp
+  CUnit.cpp
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_13_sprani_sheet\winAPIEngine\CUnit.cpp(174,34): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_13_sprani_sheet\winAPIEngine\CUnit.cpp(175,35): warning C4244: '=': 'LONG'에서 'float'(으)로 변환하면서 데이터가 손실될 수 있습니다.
+  코드를 생성하고 있습니다...
+  winAPIEngine.vcxproj -> C:\Users\User\Documents\GitHub\Client\WindowAPI\winAPIShootor_step_13_sprani_sheet\bin\winAPIEngine.lib

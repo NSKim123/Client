@@ -157,6 +157,10 @@ void CAnimator::Render(float tX, float tY)
 		if (mpCurAniSeq->mCurFrameIndex == mpCurAniSeq->mTotalFrameCount - 1)
 		{
 			mStrKeyCurAniSeq = mStrKeyPrevAniSeq;
+
+			//애니메이션 시퀀스 플레이 관련 변수 초기화
+			mpCurAniSeq->mCurFrameIndex = 0;
+			mpCurAniSeq->mAniTime = 0;
 		}
 	}
 	break;	

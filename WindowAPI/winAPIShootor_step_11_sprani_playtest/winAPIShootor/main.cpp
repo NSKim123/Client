@@ -31,7 +31,7 @@ using namespace std;
 /*
     이번 예시에서는 다음의 사항들을 만들어보자.
 
-    임의의 애니메이션 플레익 기능을 테스트해보자.
+    임의의 애니메이션 플레이 기능을 테스트해보자.
 
 
 */
@@ -569,7 +569,7 @@ public:
 
         //적 기체가 일반탄환을 일정시간 간격으로 발사
         
-        if ( mpEnemy->mTimeTick >= 5.0f )
+        if ( mpEnemy->mTimeTick >= 0.5f )
         {
             //todo 일정시간 간격으로 실행할 코드
             mpEnemy->DoFire(mBulletsEnemy);
@@ -577,6 +577,9 @@ public:
             //test
             mpEnemy->mpAnimator->mStrKeyPrevAniSeq = mpEnemy->mpAnimator->mStrKeyCurAniSeq;
             mpEnemy->mpAnimator->mStrKeyCurAniSeq = "ani_attack_enemy";
+
+            mpEnemy->mpAnimator->mpCurAniSeq->mCurFrameIndex = 0;
+            mpEnemy->mpAnimator->mpCurAniSeq->mAniTime = 0;
 
             //time tick을 초기 상태로 되돌려줌
             mpEnemy->mTimeTick = 0.0f;
