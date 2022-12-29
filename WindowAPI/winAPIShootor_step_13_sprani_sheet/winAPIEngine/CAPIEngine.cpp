@@ -280,11 +280,34 @@ void CAPIEngine::DrawTexture(float tX, float tY, CTexture* tpTexture, COLORREF t
         tpTexture->mBitmapInfo.bmWidth, tpTexture->mBitmapInfo.bmHeight,
         tColorKey);
 }
+void CAPIEngine::DrawTexturePartial(float tX, float tY, CTexture* tpTexture, int tRow, int tCol, int tIndex, COLORREF tColorKey)
+{
+    //스프라이트 시트 안에서 임의의 프레임의 너비, 높이
+    int tSrcWidth = tpTexture->mBitmapInfo.bmWidth/tCol;
+    int tSrcHeight = tpTexture->mBitmapInfo.bmHeight/tRow;
+    
+    //행렬 단위의 좌표
+    int tCurCol = tIndex % tCol;
+    int tCurRow = tIndex / tCol;
+
+    //스프라이트 시트 안에서 임의의 프레임의 왼쪽 상단 위치
+    //픽셀 단위의 좌표
+    int tSrcX = tCurCol*tSrcWidth;
+    int tSrcY = tCurRow*tSrcHeight;
+
+    TransparentBlt(this->mpBackBuffer->mhDCMem,
+        tX, tY,
+        tSrcWidth, tSrcHeight,
+        tpTexture->mhDCMem,
+        tSrcX, tSrcY,
+        tSrcWidth, tSrcHeight,
+        tColorKey);
+}
 
 /*
     ((COLORREF)(((BYTE)(r) | ((WORD)((BYTE)(g)) << 8)) | (((DWORD)(BYTE)(b)) << 16)))
 
-    엔디언: 2바이트 이상에 데이터를 바이트를 어떤 순서로 메모리상에 배치하느냐 ?
+    엔디언: 2바이트 이상의 데이터를 바이트를 어떤 순서로 메모리상에 배치하느냐 ?
     리틀 엔디언 : x86계열의 CPU에서는 리틀엔디언으로 처리한다
                     2바이트 이상의 데이터를 하위바이트부터 배치한다.
 

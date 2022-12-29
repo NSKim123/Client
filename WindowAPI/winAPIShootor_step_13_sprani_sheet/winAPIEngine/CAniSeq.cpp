@@ -10,8 +10,16 @@ CAniSeq::CAniSeq()
     mTotalFrameCount = 0;  
     mCurFrameIndex = 0;   
     mAniTime = 0.0f;
-
     mPlayOption = ANI_PO::LOOP;
+    
+    mSpriteOption = ANI_SO::FRAME_FILE;  //프레임 하나에 파일 하나가 기본
+
+    mSpriteWidth = 0;  //스프라이트 프레임의 너비
+    mSpriteHeight = 0; //스프라이트 프레임의 높이
+
+    mRow = 0;   //행
+    mCol = 0;   //열
+    mFrameCOL = 0;
 }
 CAniSeq::~CAniSeq()
 {
@@ -31,8 +39,16 @@ CAniSeq::CAniSeq(const CAniSeq& t)
     mTotalFrameCount = t.mTotalFrameCount;
     mCurFrameIndex = t.mCurFrameIndex;
     mAniTime = t.mAniTime;
-
     mPlayOption = t.mPlayOption;
+
+    mSpriteOption = t.mSpriteOption;
+
+    mSpriteWidth = t.mSpriteWidth;
+    mSpriteHeight = t.mSpriteHeight;
+
+    mRow = t.mRow;   
+    mCol = t.mCol;   
+    mFrameCOL = t.mFrameCOL;
 }
 void CAniSeq::operator=(const CAniSeq& t)
 {
@@ -42,8 +58,16 @@ void CAniSeq::operator=(const CAniSeq& t)
     mTotalFrameCount = t.mTotalFrameCount;
     mCurFrameIndex = t.mCurFrameIndex;
     mAniTime = t.mAniTime;
-
     mPlayOption = t.mPlayOption;
+
+    mSpriteOption = t.mSpriteOption;
+
+    mSpriteWidth = t.mSpriteWidth;
+    mSpriteHeight = t.mSpriteHeight;
+
+    mRow = t.mRow;
+    mCol = t.mCol;
+    mFrameCOL = t.mFrameCOL;
 }
 void CAniSeq::Update(float tDeltaTime)
 {

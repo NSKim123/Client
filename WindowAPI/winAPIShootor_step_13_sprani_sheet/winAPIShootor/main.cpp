@@ -20,6 +20,8 @@
 #include "CAniSeq.h"
 #include "CAnimator.h"
 
+#include "CExplosion.h"
+
 //test
 #include <list>
 using namespace std;
@@ -76,6 +78,8 @@ class CRyuEngine : public CAPIEngine
     CTexture* mpTexBullet = nullptr;    //탄환 비트맵 이미지 데이터 자원
     CTexture* mpTexEnemy = nullptr;     //적 비트맵 데이터 자원
 
+    CTexture* mpTexExplosion = nullptr;
+
     //스프라이트 애니메이션 테스트
     //CTexture* mTexs[2] = { nullptr, nullptr };
     /*
@@ -92,7 +96,7 @@ class CRyuEngine : public CAPIEngine
     CUnit* PFActor = nullptr;
     CUnit* PFBullet = nullptr;          //탄환 원본 객체
     CUnit* PFEnemy = nullptr;           //적 원본 객체
-
+    CUnit* PFExplosion = nullptr;
 
     //object
     CActor* mpActor = nullptr;
@@ -108,6 +112,8 @@ class CRyuEngine : public CAPIEngine
     CEnemy* mpEnemyCircled = nullptr;  //원형탄환을 발사할 적 객체
     vector<CBullet*> mBulletsEnemyCircled;
     */
+    
+    CExplosion* mpExplosion = nullptr;
 
 public:
     CRyuEngine() {};
@@ -177,7 +183,8 @@ public:
         //mpTexEnemy->LoadTexture(hInst, mhDC, L"resources/bongenemy.bmp");
         mpTexEnemy->LoadTexture(hInst, mhDC, L"resources/paladin_idle_0.bmp");
 
-
+        mpTexExplosion = new CTexture();
+        mpTexExplosion->LoadTexture(hInst, mhDC, L"resources/explosionFull.bmp");
 
         /*mTexs[0] = new CTexture();
         mTexs[0]->LoadTexture(hInst, mhDC, L"resources/bongbong_0.bmp");
@@ -208,12 +215,20 @@ public:
         CAnimator* tpAnimEnemy = PFEnemy->CreateAnimation("AnimEnemy", this);
         tpAnimEnemy->AddAniSeq("ani_idle_enemy", 0.08f, 7, L"resources/paladin_idle");
         tpAnimEnemy->AddAniSeq("ani_attack_enemy", 0.2f, 11, L"resources/paladin_attack", ANI_PO::ONCE);
-
+               
 
         //tpAnimEnemy->mStrKeyCurAniSeq = "ani_idle_enemy";  //현재
         //tpAnimEnemy->mStrKeyPrevAniSeq = "ani_idle_enemy";  //이전
         tpAnimEnemy->SetDefaultAniSeq("ani_idle_enemy");
         
+        PFExplosion = CreatePrefab<CExplosion>(mpTexExplosion, 0.5f, 0.5f, SVector2D(0.0f, 0.0f));
+        CAnimator* tpAnimExplosion = PFExplosion->CreateAnimation("AnimExplosion", this);
+        tpAnimExplosion->AddAniSeq("ani_explosion", 0.08f, 4*8, L"resources/explosionFull", ANI_PO::ONCE, ANI_SO::SHEET_FILE, 4, 8);
+        //한번만 재생, 스프라이트 시트 이용 옵션, 4행 8열
+
+        tpAnimExplosion->SetDefaultAniSeq("ani_explosion");
+
+
 
 
         //실제 객체 생성
@@ -268,6 +283,11 @@ public:
             tpBullet->Release();
             tpBullet = nullptr;
         }
+
+        mpExplosion = InstantObject<CExplosion>(PFExplosion);               //원본객체를 복제하여 객체를 생성
+        mpExplosion->AddRef();                
+        mpExplosion->SetTag("tagExplosion");
+
 /*
         mpEnemyAimed = InstantObject<CEnemy>(PFEnemy);               //원본객체를 복제하여 객체를 생성
         mpEnemyAimed->AddRef();
@@ -378,12 +398,13 @@ public:
         }
 
         DestroyObject<CActor>(mpActor);
-
+        DestroyObject<CExplosion>(mpExplosion);
 
         //원본 객체 소멸
         DestroyPrefab(PFEnemy);
         DestroyPrefab(PFBullet);
         DestroyPrefab(PFActor);
+        DestroyPrefab(PFExplosion);
 
 
         /*SAFE_DELETE(mTexs[1])
@@ -393,6 +414,7 @@ public:
         SAFE_DELETE(mpTexEnemy)
         SAFE_DELETE(mpTexBullet)
         SAFE_DELETE(mpTexture)
+        SAFE_DELETE(mpTexExplosion)
 
         CAPIEngine::OnDestroy();
     }
@@ -695,6 +717,9 @@ public:
         {
             (*tItor)->Render();
         }
+
+        mpExplosion->Render();
+
         /*
         mpEnemyAimed->Render();
         for (vector<CBullet*>::iterator tItor = mBulletsEnemyAimed.begin(); tItor != mBulletsEnemyAimed.end(); ++tItor)

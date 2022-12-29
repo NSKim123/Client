@@ -80,7 +80,7 @@ void CAnimator::operator=(const CAnimator& t)
 	mStrKeyPrevAniSeq = t.mStrKeyPrevAniSeq;
 }
 
-bool CAnimator::AddAniSeq(const string& tId, float tTimeInterval, int tTotalFrameCount, LPCWSTR tpFileName, ANI_PO tPlayOption)
+bool CAnimator::AddAniSeq(const string& tId, float tTimeInterval, int tTotalFrameCount, LPCWSTR tpFileName, ANI_PO tPlayOption, ANI_SO tSpriteOption, int tRow, int tCol)
 {
 	//CAniSeq* 타입의 객체를 만들고 값을 설정한다.
 	CAniSeq* tpAniSeq = new CAniSeq();
@@ -90,25 +90,49 @@ bool CAnimator::AddAniSeq(const string& tId, float tTimeInterval, int tTotalFram
 	tpAniSeq->mTotalFrameCount = tTotalFrameCount;
 
 	tpAniSeq->mPlayOption = tPlayOption;
+	tpAniSeq->mSpriteOption = tSpriteOption;
+	tpAniSeq->mRow = tRow;
+	tpAniSeq->mCol = tCol;
 
-	//총 프레임 갯수만큼 프레임 정보를 생성하여 추가한다.
-	for (int ti = 0;ti < tTotalFrameCount;++ti)
+
+	//프레임 하나에 파일 하나가 가정된 경우는 이렇게 처리
+	if (tSpriteOption == ANI_SO::FRAME_FILE)
+	{
+		//총 프레임 갯수만큼 프레임 정보를 생성하여 추가한다.
+		for (int ti = 0;ti < tTotalFrameCount;++ti)
+		{
+			CTexture* tpTex = nullptr;
+			tpTex = new CTexture();
+			tpTex->AddRef();
+
+			//bongbong_0.bmp , bongbong_1.bmp
+			//미리 정해둔 파일이름 규칙에 근거하여 작성했다.
+			WCHAR szTemp[256] = { 0 };
+			wsprintf(szTemp, L"%s_%d.bmp", tpFileName, ti);
+
+			tpTex->LoadTexture(mpEngine->GetHInstance(), mpEngine->GetHDC(), szTemp);
+			tpAniSeq->mTexs.push_back(tpTex);
+		}
+	}//프레임N개가 하나의 파일에 담긴 경우
+	else if (tSpriteOption == ANI_SO::SHEET_FILE)
 	{
 		CTexture* tpTex = nullptr;
 		tpTex = new CTexture();
 		tpTex->AddRef();
 
-		//bongbong_0.bmp , bongbong_1.bmp
-		//미리 정해둔 파일이름 규칙에 근거하여 작성했다.
 		WCHAR szTemp[256] = { 0 };
-		wsprintf(szTemp, L"%s_%d.bmp", tpFileName, ti);
+		wsprintf(szTemp, L"%s.bmp", tpFileName);
 
 		tpTex->LoadTexture(mpEngine->GetHInstance(), mpEngine->GetHDC(), szTemp);
 		tpAniSeq->mTexs.push_back(tpTex);
+
+		//임의의 프레임의 너비, 높이 결정
+		tpAniSeq->mSpriteWidth = tpAniSeq->mTexs[0]->mBitmapInfo.bmWidth/tCol;
+		tpAniSeq->mSpriteHeight = tpAniSeq->mTexs[0]->mBitmapInfo.bmHeight / tRow;
 	}
 
 	mAniSeqs.insert(make_pair(tId, tpAniSeq));
-
+	
 	return true;
 }
 void CAnimator::UpdateAnimation(float tDeltaTime)
@@ -127,22 +151,45 @@ void CAnimator::UpdateAnimation(float tDeltaTime)
 }
 void CAnimator::Render(float tX, float tY)
 {
-	if (!mpCurAniSeq)
+	if (mpCurAniSeq->mSpriteOption == ANI_SO::FRAME_FILE)
 	{
-		return;
-	}
-	//현재 애니메이션 시퀀스에
-	int tIndex = mpCurAniSeq->mCurFrameIndex;
-	//임의의 현재 프레임을 랜더한다.
-	CTexture* tpTex = nullptr;
-	tpTex = mpCurAniSeq->mTexs[tIndex];
-	
-	if (tpTex)
-	{
-		mpEngine->DrawTexture(tX, tY, tpTex);
-	}
+		if (!mpCurAniSeq)
+		{
+			return;
+		}
+		//현재 애니메이션 시퀀스에
+		int tIndex = mpCurAniSeq->mCurFrameIndex;
+		//임의의 현재 프레임을 랜더한다.
+		CTexture* tpTex = nullptr;
+		tpTex = mpCurAniSeq->mTexs[tIndex];
 
-	LateUpdate();
+		if (tpTex)
+		{
+			mpEngine->DrawTexture(tX, tY, tpTex);
+		}
+
+		LateUpdate();
+	}
+	else if (mpCurAniSeq->mSpriteOption == ANI_SO::SHEET_FILE)
+	{
+		if (!mpCurAniSeq)
+		{
+			return;
+		}
+		//현재 애니메이션 시퀀스에
+		int tIndex = mpCurAniSeq->mCurFrameIndex;
+		//임의의 현재 프레임을 랜더한다.
+		CTexture* tpTex = nullptr;
+		tpTex = mpCurAniSeq->mTexs[0];   //이미지는 한 장의 개념
+
+		if (tpTex)
+		{
+			//mpEngine->DrawTexture(tX, tY, tpTex);
+			mpEngine->DrawTexturePartial(tX, tY, tpTex, mpCurAniSeq->mRow, mpCurAniSeq->mCol, tIndex);
+		}
+
+		LateUpdate();
+	}
 
 }
 void CAnimator::SetDefaultAniSeq(const string& tStrDefaultAniSeq)
@@ -151,6 +198,14 @@ void CAnimator::SetDefaultAniSeq(const string& tStrDefaultAniSeq)
 	mStrKeyPrevAniSeq = tStrDefaultAniSeq;
 	//새로 플레이할 애니메이션 시퀀스를 설정한다.
 	mStrKeyCurAniSeq = tStrDefaultAniSeq;
+
+	unordered_map<string, CAniSeq*>::const_iterator tItor = mAniSeqs.find(mStrKeyCurAniSeq);
+
+	if (tItor != mAniSeqs.end())
+	{
+		mpCurAniSeq = tItor->second;
+	}
+
 
 	if (mpCurAniSeq)
 	{
