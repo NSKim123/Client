@@ -27,6 +27,8 @@ public:
 	virtual void Update(float tDeltaTime);
 	virtual void Render();
 
+	virtual void LateUpdate() {};
+
 	virtual void OnTimer() {};
 
 	virtual void OnEnterCollision(CCollider* tOther) {};

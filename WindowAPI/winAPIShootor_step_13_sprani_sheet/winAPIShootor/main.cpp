@@ -22,6 +22,8 @@
 
 #include "CExplosion.h"
 
+#include "CEfxMgr.h"
+
 //test
 #include <list>
 using namespace std;
@@ -287,6 +289,9 @@ public:
         mpExplosion = InstantObject<CExplosion>(PFExplosion);               //원본객체를 복제하여 객체를 생성
         mpExplosion->AddRef();                
         mpExplosion->SetTag("tagExplosion");
+        mpExplosion->SetIsActive(false);
+        
+        CEfxMgr::GetInstance()->mpExplosion = mpExplosion;  //등록함수를 만들어도 된다.
 
 /*
         mpEnemyAimed = InstantObject<CEnemy>(PFEnemy);               //원본객체를 복제하여 객체를 생성

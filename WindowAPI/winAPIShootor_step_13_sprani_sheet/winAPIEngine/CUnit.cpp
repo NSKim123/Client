@@ -205,6 +205,7 @@ void CUnit::Render()
 			//대표이미지
 			mpEngine->DrawTexture(mDisplayX, mDisplayY, mpTexture);
 		}
+		LateUpdate();
 
 		//DEBUG DRAW
 		//mpEngine->DrawCircle(mPosition.mX, mPosition.mY, mRadius);

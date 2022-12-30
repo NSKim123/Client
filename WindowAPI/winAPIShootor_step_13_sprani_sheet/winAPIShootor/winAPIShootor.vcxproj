@@ -149,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="CActor.h" />
     <ClInclude Include="CBullet.h" />
+    <ClInclude Include="CEfxMgr.h" />
     <ClInclude Include="CEnemy.h" />
     <ClInclude Include="CExplosion.h" />
     <ClInclude Include="config.h" />
@@ -157,6 +158,7 @@
   <ItemGroup>
     <ClCompile Include="CActor.cpp" />
     <ClCompile Include="CBullet.cpp" />
+    <ClCompile Include="CEfxMgr.cpp" />
     <ClCompile Include="CEnemy.cpp" />
     <ClCompile Include="CExplosion.cpp" />
     <ClCompile Include="CRyuTimer.cpp" />
