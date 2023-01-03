@@ -118,44 +118,150 @@ public:
 
        
         //자원 로드 부분
-        
+        mpTexPiece = new CTexture();
+        mpTexPiece->LoadTexture(hInst, mhDC, L"resources/block_0.bmp");
+
+        mpTexUISelect = new CTexture();
+        mpTexUISelect->LoadTexture(hInst, mhDC, L"resources/select_0.bmp");
+
+        //퍼즐 피스의 색상종류를 애니메이션 시퀀스에 대응시킴
+        PFPiece = CreatePrefab<CPiece>(mpTexPiece, 0.5f, 0.5f, SVector2D(0.0f, 0.0f));
+        CAnimator* tpAnimPiece = PFPiece->CreateAnimation("AnimPiece", this);
+        tpAnimPiece->AddAniSeq("BLACK", 0.0f, 1, L"resources/block_0", ANI_PO::LOOP, ANI_SO::SHEET_FILE);
+        tpAnimPiece->AddAniSeq("PINK", 0.0f, 1, L"resources/block_1", ANI_PO::LOOP, ANI_SO::SHEET_FILE);
+        tpAnimPiece->AddAniSeq("RED", 0.0f, 1, L"resources/block_2", ANI_PO::LOOP, ANI_SO::SHEET_FILE);
+        tpAnimPiece->AddAniSeq("GREEN", 0.0f, 1, L"resources/block_3", ANI_PO::LOOP, ANI_SO::SHEET_FILE);
+        tpAnimPiece->AddAniSeq("BLUE", 0.0f, 1, L"resources/block_4", ANI_PO::LOOP, ANI_SO::SHEET_FILE);
+        tpAnimPiece->AddAniSeq("YELLOW", 0.0f, 1, L"resources/block_5", ANI_PO::LOOP, ANI_SO::SHEET_FILE);
+        tpAnimPiece->SetDefaultAniSeq("BLACK");
+
+        PFUISelect = CreatePrefab<CSelect>(mpTexUISelect, 0.5f, 0.5f, SVector2D(0.0f, 0.0f));
+
+        //'대기', '선택' 두 경우의 애니메이션 시퀀스를 만든다.
+        CAnimator* tpAnimSelect = PFUISelect->CreateAnimation("AnimSelect", this);
+        tpAnimSelect->AddAniSeq("IDLE", 0.0f, 1, L"resources/select_0", ANI_PO::LOOP, ANI_SO::SHEET_FILE);
+        tpAnimSelect->AddAniSeq("SELECT", 0.3f, 2, L"resources/select", ANI_PO::LOOP, ANI_SO::FRAME_FILE);
+        //tpAnimSelect->AddAniSeq("SELECT", 0.3f, 2, L"resources/select", ANI_PO::ONCE, ANI_SO::FRAME_FILE);
+        //tpAnimSelect->SetDefaultAniSeq("IDLE");
+        tpAnimSelect->SetDefaultAniSeq("SELECT");
 
         //실제 객체 생성
+        for (int tRow =0;tRow<5; ++tRow)
+        {
+            for (int tCol =0;tCol < 5; ++tCol)
+            {
+                mPieceBoard[tRow][tCol] = InstantObject<CPiece>(PFPiece);
+                mPieceBoard[tRow][tCol]->AddRef();
+            }
+        }
         
-                
-        //입력 매핑 등록
-        
+        mpUISelect = InstantObject<CSelect>(PFUISelect);
+        mpUISelect->AddRef();
 
-             
+        //키입력 매핑값 등록
+        CInputMgr::GetInstance()->AddKey("OnMoveLt", VK_LEFT);
+        CInputMgr::GetInstance()->AddKey("OnMoveRt", VK_RIGHT);
+        CInputMgr::GetInstance()->AddKey("OnMoveUp", VK_UP);
+        CInputMgr::GetInstance()->AddKey("OnMoveDown", VK_DOWN);
 
-
+        CInputMgr::GetInstance()->AddKey("OnSelectHit", VK_SPACE);
     }
     virtual void OnDestroy() override
     {
        
        
         //실제 객체 소멸        
-        
+        DestroyObject(mpUISelect);
 
-        //원본 객체 소멸
-        
+        for (int tRow = 0;tRow < 5; ++tRow)
+        {
+            for (int tCol = 0 ;tCol < 5; ++tCol)
+            {
+                DestroyObject(mPieceBoard[tRow][tCol]);
+            }
+        }
+
+
+        //원본 객체 소멸       
+        DestroyPrefab(PFUISelect);
+        DestroyPrefab(PFPiece);
        
         //자원 해제 
-        
+        SAFE_DELETE(mpTexUISelect)
+        SAFE_DELETE(mpTexPiece)
 
         CAPIEngine::OnDestroy();
     }
     virtual void OnUpdate(float tDeltaTime) override
     {
         CAPIEngine::OnUpdate(tDeltaTime);
+        
+        //키입력에 따른 조작       
+        if (CInputMgr::GetInstance()->KeyUp("OnMoveLt"))
+        {
+            mCurX = mCurX - 1;
+        }
+        if (CInputMgr::GetInstance()->KeyUp("OnMoveRt"))
+        {
+            mCurX = mCurX + 1;
+        }
+        if (CInputMgr::GetInstance()->KeyUp("OnMoveUp"))
+        {
+            mCurY = mCurY - 1;
+        }
+        if (CInputMgr::GetInstance()->KeyUp("OnMoveDown"))
+        {
+            mCurY = mCurY + 1;
+        }
 
-       
+        if (CInputMgr::GetInstance()->KeyUp("OnSelectHit"))
+        {
+            OutputDebugString(L"=============OnSelectHit!=============\n");
+        }
+                
+
+        //update
+        int tBoardStartX = 100;
+        int tBoardStartY = 100;
 
 
+        for (int tRow = 0;tRow < 5; ++tRow)
+        {
+            for (int tCol = 0;tCol < 5; ++tCol)
+            {
+                //행, 열 단위의 위치값을 픽셀 단위의 위치값으로 변환
+                int tX = tCol * 96 + tBoardStartX;
+                int tY = tRow * 96 + tBoardStartY;
+
+                //해당 퍼즐 피스가 위치할 셀의 위치값을 픽셀 단위로 구하여 설정
+                mPieceBoard[tRow][tCol]->SetPosition(SVector2D((float)tX, (float)tY));
+
+                //어느 색상의 퍼즐 피스인가 결정
+                int tColorIndex = mBoardAttrib[tRow][tCol];
+                string tColorString = mColor[tColorIndex];
+
+                mPieceBoard[tRow][tCol]->PlayAni(tColorString);
+            }
+        }
+
+        int tX = mCurX * 96 + tBoardStartX;    //<-- mCurX : 열
+        int tY = mCurY * 96 + tBoardStartY;    //<-- mCurY : 행
+        mpUISelect->SetPosition(SVector2D(tX, tY));
+        mpUISelect->Update(tDeltaTime);
 
         //render
         this->Clear(0.1f, 0.1f, 0.3f);        
                 
+        //셀들에 배치된 퍼즐 피스들 랜더
+        for (int tRow = 0;tRow < 5; ++tRow)
+        {
+            for (int tCol =0 ;tCol < 5; ++tCol)
+            {
+                mPieceBoard[tRow][tCol]->Render();
+            }
+        }
+        //선택UI 랜더
+        mpUISelect->Render();
 
         this->Present();
     }
